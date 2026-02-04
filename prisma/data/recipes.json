@@ -1,0 +1,1287 @@
+[
+  {
+    "id": "rec_borsch",
+    "name": "Борщ классический",
+    "description": "Традиционный украинский борщ с говядиной и свёклой",
+    "prepTime": 30,
+    "cookTime": 120,
+    "totalTime": 150,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["soup"],
+    "cuisines": ["russian", "ukrainian"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 3,
+    "ingredients": [
+      { "productId": "prod_beef", "amount": 500, "unit": "g", "amountInGrams": 500, "groupName": "Мясо" },
+      { "productId": "prod_beet", "amount": 2, "unit": "piece", "amountInGrams": 400, "groupName": "Овощи" },
+      { "productId": "prod_cabbage", "amount": 300, "unit": "g", "amountInGrams": 300, "groupName": "Овощи" },
+      { "productId": "prod_potato", "amount": 3, "unit": "piece", "amountInGrams": 450, "groupName": "Овощи" },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80, "groupName": "Овощи" },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110, "groupName": "Овощи" },
+      { "productId": "prod_tomato_paste", "amount": 2, "unit": "tablespoon", "amountInGrams": 30, "groupName": "Соусы" },
+      { "productId": "prod_garlic", "amount": 3, "unit": "piece", "amountInGrams": 9, "groupName": "Специи" },
+      { "productId": "prod_bay_leaf", "amount": 2, "unit": "piece", "amountInGrams": 1, "groupName": "Специи" },
+      { "productId": "prod_sunflower_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30, "groupName": "Масло" },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5, "groupName": "Специи" },
+      { "productId": "prod_sour_cream", "amount": 100, "unit": "g", "amountInGrams": 100, "groupName": "Подача", "isOptional": true }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Сварите мясной бульон из говядины в течение 1.5 часов на медленном огне.", "durationMinutes": 90 },
+      { "stepNumber": 2, "instruction": "Свёклу натрите на крупной тёрке, обжарьте с томатной пастой.", "durationMinutes": 15 },
+      { "stepNumber": 3, "instruction": "Лук и морковь нарежьте, обжарьте на масле.", "durationMinutes": 10 },
+      { "stepNumber": 4, "instruction": "Добавьте в бульон картофель и капусту.", "durationMinutes": 15 },
+      { "stepNumber": 5, "instruction": "Добавьте обжаренные овощи и свёклу, варите 20 минут.", "durationMinutes": 20 },
+      { "stepNumber": 6, "instruction": "Добавьте чеснок, лавровый лист, соль. Дайте настояться." }
+    ]
+  },
+  {
+    "id": "rec_shchi",
+    "name": "Щи из свежей капусты",
+    "description": "Русские щи с капустой и картофелем",
+    "prepTime": 20,
+    "cookTime": 60,
+    "totalTime": 80,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["soup"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_chicken_thigh", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_cabbage", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_potato", "amount": 3, "unit": "piece", "amountInGrams": 450 },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_tomato_paste", "amount": 1, "unit": "tablespoon", "amountInGrams": 15 },
+      { "productId": "prod_bay_leaf", "amount": 2, "unit": "piece", "amountInGrams": 1 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Сварите куриный бульон из бёдер.", "durationMinutes": 40 },
+      { "stepNumber": 2, "instruction": "Добавьте нарезанный картофель.", "durationMinutes": 10 },
+      { "stepNumber": 3, "instruction": "Добавьте нашинкованную капусту и зажарку из лука и моркови.", "durationMinutes": 15 },
+      { "stepNumber": 4, "instruction": "Приправьте, добавьте лавровый лист, варите до готовности." }
+    ]
+  },
+  {
+    "id": "rec_pelmeni",
+    "name": "Пельмени домашние",
+    "description": "Классические русские пельмени с мясной начинкой",
+    "prepTime": 60,
+    "cookTime": 15,
+    "totalTime": 75,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 4,
+    "ingredients": [
+      { "productId": "prod_flour", "amount": 400, "unit": "g", "amountInGrams": 400, "groupName": "Тесто" },
+      { "productId": "prod_egg", "amount": 1, "unit": "piece", "amountInGrams": 60, "groupName": "Тесто" },
+      { "productId": "prod_minced_meat", "amount": 500, "unit": "g", "amountInGrams": 500, "groupName": "Начинка" },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110, "groupName": "Начинка" },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 },
+      { "productId": "prod_black_pepper", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 1 },
+      { "productId": "prod_sour_cream", "amount": 100, "unit": "g", "amountInGrams": 100, "isOptional": true }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Замесите тесто из муки, яйца, воды и соли. Дайте отдохнуть 30 минут." },
+      { "stepNumber": 2, "instruction": "Приготовьте начинку: смешайте фарш с мелко нарезанным луком, солью и перцем." },
+      { "stepNumber": 3, "instruction": "Раскатайте тесто, вырежьте кружки, положите начинку, защипите края." },
+      { "stepNumber": 4, "instruction": "Варите в подсоленной воде 10-12 минут после всплытия." }
+    ]
+  },
+  {
+    "id": "rec_olivier",
+    "name": "Салат Оливье",
+    "description": "Классический русский салат с майонезом",
+    "prepTime": 40,
+    "cookTime": 30,
+    "totalTime": 70,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["salad"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_potato", "amount": 4, "unit": "piece", "amountInGrams": 600 },
+      { "productId": "prod_carrot", "amount": 2, "unit": "piece", "amountInGrams": 160 },
+      { "productId": "prod_egg", "amount": 4, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_chicken_breast", "amount": 300, "unit": "g", "amountInGrams": 300 },
+      { "productId": "prod_cucumber", "amount": 2, "unit": "piece", "amountInGrams": 300 },
+      { "productId": "prod_green_peas", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_mayonnaise", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Отварите картофель, морковь, яйца и курицу до готовности." },
+      { "stepNumber": 2, "instruction": "Нарежьте все ингредиенты мелкими кубиками." },
+      { "stepNumber": 3, "instruction": "Смешайте с горошком и заправьте майонезом." }
+    ]
+  },
+  {
+    "id": "rec_greek_salad",
+    "name": "Греческий салат",
+    "description": "Лёгкий средиземноморский салат с фетой и оливками",
+    "prepTime": 15,
+    "cookTime": 0,
+    "totalTime": 15,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["salad"],
+    "cuisines": ["mediterranean"],
+    "cookingMethods": ["raw"],
+    "difficultyLevel": 1,
+    "ingredients": [
+      { "productId": "prod_tomato", "amount": 4, "unit": "piece", "amountInGrams": 480 },
+      { "productId": "prod_cucumber", "amount": 2, "unit": "piece", "amountInGrams": 300 },
+      { "productId": "prod_bell_pepper", "amount": 1, "unit": "piece", "amountInGrams": 120 },
+      { "productId": "prod_onion", "amount": 0.5, "unit": "piece", "amountInGrams": 55 },
+      { "productId": "prod_cheese_hard", "amount": 150, "unit": "g", "amountInGrams": 150 },
+      { "productId": "prod_olive_oil", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Нарежьте овощи крупными кусками." },
+      { "stepNumber": 2, "instruction": "Добавьте нарезанный сыр." },
+      { "stepNumber": 3, "instruction": "Заправьте оливковым маслом, посолите." }
+    ]
+  },
+  {
+    "id": "rec_carbonara",
+    "name": "Паста Карбонара",
+    "description": "Итальянская паста с беконом и яичным соусом",
+    "prepTime": 10,
+    "cookTime": 20,
+    "totalTime": 30,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["italian"],
+    "cookingMethods": ["boiling", "frying"],
+    "difficultyLevel": 3,
+    "ingredients": [
+      { "productId": "prod_pasta", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_pork", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_egg", "amount": 4, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_cheese_hard", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_black_pepper", "amount": 1, "unit": "teaspoon", "amountInGrams": 2 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Отварите пасту до состояния аль денте." },
+      { "stepNumber": 2, "instruction": "Обжарьте нарезанную свинину до хрустящей корочки." },
+      { "stepNumber": 3, "instruction": "Взбейте яйца с тёртым сыром и перцем." },
+      { "stepNumber": 4, "instruction": "Смешайте горячую пасту со свининой и яичной смесью." }
+    ]
+  },
+  {
+    "id": "rec_chicken_stir_fry",
+    "name": "Курица с овощами по-азиатски",
+    "description": "Быстрое блюдо с курицей и овощами в соевом соусе",
+    "prepTime": 15,
+    "cookTime": 15,
+    "totalTime": 30,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["asian"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_chicken_breast", "amount": 500, "unit": "g", "amountInGrams": 500 },
+      { "productId": "prod_bell_pepper", "amount": 2, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_soy_sauce", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 },
+      { "productId": "prod_ginger", "amount": 20, "unit": "g", "amountInGrams": 20 },
+      { "productId": "prod_garlic", "amount": 3, "unit": "piece", "amountInGrams": 9 },
+      { "productId": "prod_sunflower_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_sesame", "amount": 1, "unit": "tablespoon", "amountInGrams": 10, "isOptional": true }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Нарежьте курицу полосками, овощи — соломкой." },
+      { "stepNumber": 2, "instruction": "Обжарьте курицу на сильном огне 5 минут." },
+      { "stepNumber": 3, "instruction": "Добавьте имбирь, чеснок и овощи, жарьте 5 минут." },
+      { "stepNumber": 4, "instruction": "Влейте соевый соус, перемешайте." }
+    ]
+  },
+  {
+    "id": "rec_fried_rice",
+    "name": "Жареный рис с овощами",
+    "description": "Азиатский рис с яйцом и овощами",
+    "prepTime": 10,
+    "cookTime": 15,
+    "totalTime": 25,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main", "side"],
+    "cuisines": ["asian"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_rice", "amount": 300, "unit": "g", "amountInGrams": 300 },
+      { "productId": "prod_egg", "amount": 2, "unit": "piece", "amountInGrams": 120 },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80 },
+      { "productId": "prod_green_peas", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_soy_sauce", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_sunflower_oil", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Отварите рис заранее и охладите." },
+      { "stepNumber": 2, "instruction": "Обжарьте овощи на масле 3-4 минуты." },
+      { "stepNumber": 3, "instruction": "Добавьте рис, жарьте, помешивая." },
+      { "stepNumber": 4, "instruction": "Отодвиньте рис, влейте яйца, размешайте." },
+      { "stepNumber": 5, "instruction": "Добавьте соевый соус, перемешайте." }
+    ]
+  },
+  {
+    "id": "rec_kotlety",
+    "name": "Котлеты домашние",
+    "description": "Классические мясные котлеты",
+    "prepTime": 20,
+    "cookTime": 20,
+    "totalTime": 40,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_minced_meat", "amount": 500, "unit": "g", "amountInGrams": 500 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_bread", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_milk", "amount": 100, "unit": "ml", "amountInGrams": 100 },
+      { "productId": "prod_egg", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 },
+      { "productId": "prod_black_pepper", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 1 },
+      { "productId": "prod_sunflower_oil", "amount": 4, "unit": "tablespoon", "amountInGrams": 60 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Замочите хлеб в молоке." },
+      { "stepNumber": 2, "instruction": "Смешайте фарш с отжатым хлебом, яйцом, луком и специями." },
+      { "stepNumber": 3, "instruction": "Сформируйте котлеты." },
+      { "stepNumber": 4, "instruction": "Обжарьте с двух сторон до золотистой корочки." }
+    ]
+  },
+  {
+    "id": "rec_grechka",
+    "name": "Гречневая каша",
+    "description": "Рассыпчатая гречка с маслом",
+    "prepTime": 5,
+    "cookTime": 20,
+    "totalTime": 25,
+    "servings": 4,
+    "mealTypes": ["breakfast", "lunch", "dinner"],
+    "courses": ["side", "main"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 1,
+    "ingredients": [
+      { "productId": "prod_buckwheat", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_butter", "amount": 30, "unit": "g", "amountInGrams": 30 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Промойте гречку." },
+      { "stepNumber": 2, "instruction": "Залейте водой 1:2, посолите." },
+      { "stepNumber": 3, "instruction": "Варите под крышкой 15-20 минут." },
+      { "stepNumber": 4, "instruction": "Добавьте масло." }
+    ]
+  },
+  {
+    "id": "rec_mashed_potato",
+    "name": "Картофельное пюре",
+    "description": "Нежное пюре со сливками",
+    "prepTime": 10,
+    "cookTime": 25,
+    "totalTime": 35,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["side"],
+    "cuisines": ["international"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 1,
+    "ingredients": [
+      { "productId": "prod_potato", "amount": 6, "unit": "piece", "amountInGrams": 900 },
+      { "productId": "prod_milk", "amount": 150, "unit": "ml", "amountInGrams": 150 },
+      { "productId": "prod_butter", "amount": 50, "unit": "g", "amountInGrams": 50 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Очистите и нарежьте картофель." },
+      { "stepNumber": 2, "instruction": "Отварите в подсоленной воде до готовности." },
+      { "stepNumber": 3, "instruction": "Слейте воду, добавьте горячее молоко и масло." },
+      { "stepNumber": 4, "instruction": "Разомните до однородности." }
+    ]
+  },
+  {
+    "id": "rec_omelette",
+    "name": "Омлет классический",
+    "description": "Пышный омлет на сковороде",
+    "prepTime": 5,
+    "cookTime": 10,
+    "totalTime": 15,
+    "servings": 2,
+    "mealTypes": ["breakfast"],
+    "courses": ["main"],
+    "cuisines": ["french"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 1,
+    "ingredients": [
+      { "productId": "prod_egg", "amount": 4, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_milk", "amount": 50, "unit": "ml", "amountInGrams": 50 },
+      { "productId": "prod_butter", "amount": 20, "unit": "g", "amountInGrams": 20 },
+      { "productId": "prod_salt", "amount": 0.25, "unit": "teaspoon", "amountInGrams": 1 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Взбейте яйца с молоком и солью." },
+      { "stepNumber": 2, "instruction": "Растопите масло на сковороде." },
+      { "stepNumber": 3, "instruction": "Вылейте смесь, готовьте под крышкой 8-10 минут." }
+    ]
+  },
+  {
+    "id": "rec_oatmeal",
+    "name": "Овсяная каша",
+    "description": "Полезный завтрак с овсянкой",
+    "prepTime": 5,
+    "cookTime": 10,
+    "totalTime": 15,
+    "servings": 2,
+    "mealTypes": ["breakfast"],
+    "courses": ["main"],
+    "cuisines": ["international"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 1,
+    "ingredients": [
+      { "productId": "prod_oats", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_milk", "amount": 300, "unit": "ml", "amountInGrams": 300 },
+      { "productId": "prod_honey", "amount": 1, "unit": "tablespoon", "amountInGrams": 20, "isOptional": true },
+      { "productId": "prod_banana", "amount": 1, "unit": "piece", "amountInGrams": 120, "isOptional": true }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Вскипятите молоко." },
+      { "stepNumber": 2, "instruction": "Добавьте овсянку, варите 5-7 минут." },
+      { "stepNumber": 3, "instruction": "Добавьте мёд и банан по желанию." }
+    ]
+  },
+  {
+    "id": "rec_pancakes",
+    "name": "Блины на молоке",
+    "description": "Тонкие русские блины",
+    "prepTime": 10,
+    "cookTime": 30,
+    "totalTime": 40,
+    "servings": 6,
+    "mealTypes": ["breakfast"],
+    "courses": ["main", "dessert"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_flour", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_milk", "amount": 500, "unit": "ml", "amountInGrams": 500 },
+      { "productId": "prod_egg", "amount": 2, "unit": "piece", "amountInGrams": 120 },
+      { "productId": "prod_sugar", "amount": 2, "unit": "tablespoon", "amountInGrams": 25 },
+      { "productId": "prod_sunflower_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Взбейте яйца с сахаром и солью." },
+      { "stepNumber": 2, "instruction": "Добавьте половину молока, муку, перемешайте." },
+      { "stepNumber": 3, "instruction": "Добавьте остальное молоко и масло." },
+      { "stepNumber": 4, "instruction": "Жарьте тонкие блины с двух сторон." }
+    ]
+  },
+  {
+    "id": "rec_syrniki",
+    "name": "Сырники",
+    "description": "Творожные сырники на завтрак",
+    "prepTime": 15,
+    "cookTime": 15,
+    "totalTime": 30,
+    "servings": 4,
+    "mealTypes": ["breakfast"],
+    "courses": ["main", "dessert"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_cottage_cheese", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_egg", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_flour", "amount": 4, "unit": "tablespoon", "amountInGrams": 50 },
+      { "productId": "prod_sugar", "amount": 2, "unit": "tablespoon", "amountInGrams": 25 },
+      { "productId": "prod_sunflower_oil", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 },
+      { "productId": "prod_sour_cream", "amount": 100, "unit": "g", "amountInGrams": 100, "isOptional": true }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Смешайте творог с яйцом, сахаром и частью муки." },
+      { "stepNumber": 2, "instruction": "Сформируйте шарики, обваляйте в муке, слегка приплюсните." },
+      { "stepNumber": 3, "instruction": "Обжарьте на масле с двух сторон." },
+      { "stepNumber": 4, "instruction": "Подавайте со сметаной." }
+    ]
+  },
+  {
+    "id": "rec_chicken_soup",
+    "name": "Куриный суп с лапшой",
+    "description": "Лёгкий домашний суп",
+    "prepTime": 15,
+    "cookTime": 40,
+    "totalTime": 55,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["soup"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_chicken_thigh", "amount": 500, "unit": "g", "amountInGrams": 500 },
+      { "productId": "prod_potato", "amount": 3, "unit": "piece", "amountInGrams": 450 },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_pasta", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_bay_leaf", "amount": 2, "unit": "piece", "amountInGrams": 1 },
+      { "productId": "prod_dill", "amount": 20, "unit": "g", "amountInGrams": 20 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Сварите куриный бульон." },
+      { "stepNumber": 2, "instruction": "Добавьте картофель, варите 10 минут." },
+      { "stepNumber": 3, "instruction": "Добавьте зажарку из лука и моркови, лапшу." },
+      { "stepNumber": 4, "instruction": "Приправьте, добавьте укроп." }
+    ]
+  },
+  {
+    "id": "rec_baked_salmon",
+    "name": "Запечённый лосось",
+    "description": "Лосось в духовке с лимоном и травами",
+    "prepTime": 10,
+    "cookTime": 20,
+    "totalTime": 30,
+    "servings": 4,
+    "mealTypes": ["dinner"],
+    "courses": ["main"],
+    "cuisines": ["mediterranean"],
+    "cookingMethods": ["baking"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_salmon", "amount": 600, "unit": "g", "amountInGrams": 600 },
+      { "productId": "prod_lemon", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_olive_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_dill", "amount": 20, "unit": "g", "amountInGrams": 20 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 },
+      { "productId": "prod_black_pepper", "amount": 0.25, "unit": "teaspoon", "amountInGrams": 0.5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Разогрейте духовку до 200°C.", "temperatureValue": 200, "temperatureUnit": "C" },
+      { "stepNumber": 2, "instruction": "Смажьте лосось маслом, посолите, поперчите." },
+      { "stepNumber": 3, "instruction": "Положите сверху дольки лимона и чеснок." },
+      { "stepNumber": 4, "instruction": "Запекайте 15-20 минут." }
+    ]
+  },
+  {
+    "id": "rec_beef_stroganoff",
+    "name": "Бефстроганов",
+    "description": "Говядина в сливочном соусе",
+    "prepTime": 15,
+    "cookTime": 25,
+    "totalTime": 40,
+    "servings": 4,
+    "mealTypes": ["dinner"],
+    "courses": ["main"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 3,
+    "ingredients": [
+      { "productId": "prod_beef", "amount": 500, "unit": "g", "amountInGrams": 500 },
+      { "productId": "prod_onion", "amount": 2, "unit": "piece", "amountInGrams": 220 },
+      { "productId": "prod_mushroom", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_sour_cream", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_flour", "amount": 1, "unit": "tablespoon", "amountInGrams": 12 },
+      { "productId": "prod_butter", "amount": 30, "unit": "g", "amountInGrams": 30 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 },
+      { "productId": "prod_black_pepper", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 1 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Нарежьте мясо соломкой, обжарьте на сильном огне." },
+      { "stepNumber": 2, "instruction": "Добавьте лук и грибы, жарьте 10 минут." },
+      { "stepNumber": 3, "instruction": "Всыпьте муку, перемешайте." },
+      { "stepNumber": 4, "instruction": "Добавьте сметану, тушите 10 минут." }
+    ]
+  },
+  {
+    "id": "rec_pilaf",
+    "name": "Плов с курицей",
+    "description": "Ароматный плов по-узбекски",
+    "prepTime": 20,
+    "cookTime": 60,
+    "totalTime": 80,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["uzbek", "asian"],
+    "cookingMethods": ["braising"],
+    "difficultyLevel": 3,
+    "ingredients": [
+      { "productId": "prod_rice", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_chicken_thigh", "amount": 600, "unit": "g", "amountInGrams": 600 },
+      { "productId": "prod_carrot", "amount": 3, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_onion", "amount": 2, "unit": "piece", "amountInGrams": 220 },
+      { "productId": "prod_garlic", "amount": 1, "unit": "piece", "amountInGrams": 30 },
+      { "productId": "prod_cumin", "amount": 1, "unit": "teaspoon", "amountInGrams": 3 },
+      { "productId": "prod_turmeric", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 1.5 },
+      { "productId": "prod_sunflower_oil", "amount": 100, "unit": "ml", "amountInGrams": 100 },
+      { "productId": "prod_salt", "amount": 1.5, "unit": "teaspoon", "amountInGrams": 7 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Обжарьте курицу в казане до золотистого цвета." },
+      { "stepNumber": 2, "instruction": "Добавьте лук, затем морковь соломкой." },
+      { "stepNumber": 3, "instruction": "Добавьте специи, залейте водой, тушите 20 минут." },
+      { "stepNumber": 4, "instruction": "Выложите рис, воткните головку чеснока." },
+      { "stepNumber": 5, "instruction": "Готовьте под крышкой 30 минут без перемешивания." }
+    ]
+  },
+  {
+    "id": "rec_vegetable_soup",
+    "name": "Овощной суп",
+    "description": "Лёгкий диетический суп из овощей",
+    "prepTime": 15,
+    "cookTime": 30,
+    "totalTime": 45,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["soup"],
+    "cuisines": ["international"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 1,
+    "isVegan": true,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_potato", "amount": 3, "unit": "piece", "amountInGrams": 450 },
+      { "productId": "prod_carrot", "amount": 2, "unit": "piece", "amountInGrams": 160 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_zucchini", "amount": 1, "unit": "piece", "amountInGrams": 200 },
+      { "productId": "prod_tomato", "amount": 2, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_olive_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_parsley", "amount": 20, "unit": "g", "amountInGrams": 20 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Нарежьте все овощи кубиками." },
+      { "stepNumber": 2, "instruction": "Обжарьте лук и морковь." },
+      { "stepNumber": 3, "instruction": "Добавьте воду, картофель, варите 10 минут." },
+      { "stepNumber": 4, "instruction": "Добавьте остальные овощи, варите до готовности." }
+    ]
+  },
+  {
+    "id": "rec_caesar_salad",
+    "name": "Салат Цезарь",
+    "description": "Классический салат с курицей и пармезаном",
+    "prepTime": 20,
+    "cookTime": 15,
+    "totalTime": 35,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["salad"],
+    "cuisines": ["american"],
+    "cookingMethods": ["frying", "raw"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_chicken_breast", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_lettuce", "amount": 1, "unit": "piece", "amountInGrams": 300 },
+      { "productId": "prod_cheese_hard", "amount": 80, "unit": "g", "amountInGrams": 80 },
+      { "productId": "prod_bread", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_olive_oil", "amount": 4, "unit": "tablespoon", "amountInGrams": 60 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_mayonnaise", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 },
+      { "productId": "prod_lemon", "amount": 0.5, "unit": "piece", "amountInGrams": 30 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Обжарьте курицу, нарежьте полосками." },
+      { "stepNumber": 2, "instruction": "Сделайте сухарики из хлеба с чесноком." },
+      { "stepNumber": 3, "instruction": "Смешайте майонез с лимонным соком." },
+      { "stepNumber": 4, "instruction": "Соберите салат: листья, курица, сухарики, сыр, заправка." }
+    ]
+  },
+  {
+    "id": "rec_vinegret",
+    "name": "Винегрет",
+    "description": "Классический русский салат со свёклой",
+    "prepTime": 20,
+    "cookTime": 60,
+    "totalTime": 80,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["salad"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 2,
+    "isVegan": true,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_beet", "amount": 2, "unit": "piece", "amountInGrams": 400 },
+      { "productId": "prod_potato", "amount": 3, "unit": "piece", "amountInGrams": 450 },
+      { "productId": "prod_carrot", "amount": 2, "unit": "piece", "amountInGrams": 160 },
+      { "productId": "prod_cucumber", "amount": 2, "unit": "piece", "amountInGrams": 300 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_green_peas", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_sunflower_oil", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Отварите свёклу, картофель и морковь до готовности." },
+      { "stepNumber": 2, "instruction": "Остудите и нарежьте кубиками." },
+      { "stepNumber": 3, "instruction": "Добавьте солёные огурцы, лук, горошек." },
+      { "stepNumber": 4, "instruction": "Заправьте маслом, посолите." }
+    ]
+  },
+  {
+    "id": "rec_lentil_soup",
+    "name": "Суп из чечевицы",
+    "description": "Густой суп-пюре из красной чечевицы",
+    "prepTime": 10,
+    "cookTime": 35,
+    "totalTime": 45,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["soup"],
+    "cuisines": ["mediterranean"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 2,
+    "isVegan": true,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_lentils", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_tomato_paste", "amount": 1, "unit": "tablespoon", "amountInGrams": 15 },
+      { "productId": "prod_cumin", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 1.5 },
+      { "productId": "prod_olive_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_lemon", "amount": 0.5, "unit": "piece", "amountInGrams": 30 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Обжарьте лук и чеснок на масле." },
+      { "stepNumber": 2, "instruction": "Добавьте морковь, томатную пасту и специи." },
+      { "stepNumber": 3, "instruction": "Добавьте чечевицу и воду, варите 25-30 минут." },
+      { "stepNumber": 4, "instruction": "Пюрируйте блендером, добавьте лимонный сок." }
+    ]
+  },
+  {
+    "id": "rec_chicken_cutlets",
+    "name": "Куриные котлеты",
+    "description": "Диетические котлеты из куриного филе",
+    "prepTime": 15,
+    "cookTime": 20,
+    "totalTime": 35,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_chicken_breast", "amount": 600, "unit": "g", "amountInGrams": 600 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_egg", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_flour", "amount": 2, "unit": "tablespoon", "amountInGrams": 25 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 },
+      { "productId": "prod_black_pepper", "amount": 0.25, "unit": "teaspoon", "amountInGrams": 0.5 },
+      { "productId": "prod_sunflower_oil", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Пропустите курицу и лук через мясорубку." },
+      { "stepNumber": 2, "instruction": "Добавьте яйцо, муку, специи, перемешайте." },
+      { "stepNumber": 3, "instruction": "Сформируйте котлеты." },
+      { "stepNumber": 4, "instruction": "Обжарьте с двух сторон до готовности." }
+    ]
+  },
+  {
+    "id": "rec_shashlik",
+    "name": "Шашлык из свинины",
+    "description": "Маринованная свинина на шампурах",
+    "prepTime": 30,
+    "cookTime": 30,
+    "passiveTime": 360,
+    "totalTime": 420,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["grilling"],
+    "difficultyLevel": 3,
+    "ingredients": [
+      { "productId": "prod_pork", "amount": 1000, "unit": "g", "amountInGrams": 1000 },
+      { "productId": "prod_onion", "amount": 3, "unit": "piece", "amountInGrams": 330 },
+      { "productId": "prod_vinegar", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_salt", "amount": 1.5, "unit": "teaspoon", "amountInGrams": 7 },
+      { "productId": "prod_black_pepper", "amount": 1, "unit": "teaspoon", "amountInGrams": 2 },
+      { "productId": "prod_coriander", "amount": 1, "unit": "teaspoon", "amountInGrams": 3 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Нарежьте мясо крупными кусками." },
+      { "stepNumber": 2, "instruction": "Нарежьте лук кольцами, помните руками." },
+      { "stepNumber": 3, "instruction": "Смешайте мясо с луком, специями и уксусом." },
+      { "stepNumber": 4, "instruction": "Маринуйте минимум 6 часов.", "durationMinutes": 360 },
+      { "stepNumber": 5, "instruction": "Нанижите на шампуры, жарьте на углях." }
+    ]
+  },
+  {
+    "id": "rec_mushroom_risotto",
+    "name": "Ризотто с грибами",
+    "description": "Кремовое итальянское ризотто",
+    "prepTime": 15,
+    "cookTime": 30,
+    "totalTime": 45,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["italian"],
+    "cookingMethods": ["braising"],
+    "difficultyLevel": 3,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_rice", "amount": 300, "unit": "g", "amountInGrams": 300 },
+      { "productId": "prod_mushroom", "amount": 300, "unit": "g", "amountInGrams": 300 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_chicken_broth", "amount": 1000, "unit": "ml", "amountInGrams": 1000 },
+      { "productId": "prod_cheese_hard", "amount": 50, "unit": "g", "amountInGrams": 50 },
+      { "productId": "prod_butter", "amount": 30, "unit": "g", "amountInGrams": 30 },
+      { "productId": "prod_olive_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Обжарьте лук и чеснок на масле." },
+      { "stepNumber": 2, "instruction": "Добавьте грибы, жарьте 5 минут." },
+      { "stepNumber": 3, "instruction": "Добавьте рис, помешивая 1 минуту." },
+      { "stepNumber": 4, "instruction": "Порциями добавляйте горячий бульон, помешивая." },
+      { "stepNumber": 5, "instruction": "В конце добавьте масло и сыр." }
+    ]
+  },
+  {
+    "id": "rec_pea_soup",
+    "name": "Гороховый суп",
+    "description": "Густой суп с горохом и копчёностями",
+    "prepTime": 20,
+    "cookTime": 90,
+    "totalTime": 110,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["soup"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_white_beans", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_pork", "amount": 300, "unit": "g", "amountInGrams": 300 },
+      { "productId": "prod_potato", "amount": 3, "unit": "piece", "amountInGrams": 450 },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_bay_leaf", "amount": 2, "unit": "piece", "amountInGrams": 1 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Замочите горох на ночь (или используйте дроблёный)." },
+      { "stepNumber": 2, "instruction": "Сварите мясной бульон." },
+      { "stepNumber": 3, "instruction": "Добавьте горох, варите 40 минут." },
+      { "stepNumber": 4, "instruction": "Добавьте картофель и зажарку." },
+      { "stepNumber": 5, "instruction": "Варите до мягкости гороха." }
+    ]
+  },
+  {
+    "id": "rec_stuffed_peppers",
+    "name": "Фаршированный перец",
+    "description": "Перец с мясом и рисом в томатном соусе",
+    "prepTime": 30,
+    "cookTime": 45,
+    "totalTime": 75,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["braising"],
+    "difficultyLevel": 3,
+    "ingredients": [
+      { "productId": "prod_bell_pepper", "amount": 8, "unit": "piece", "amountInGrams": 960 },
+      { "productId": "prod_minced_meat", "amount": 500, "unit": "g", "amountInGrams": 500 },
+      { "productId": "prod_rice", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80 },
+      { "productId": "prod_tomato_paste", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_sour_cream", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Удалите семена из перцев." },
+      { "stepNumber": 2, "instruction": "Смешайте фарш с отваренным рисом и луком." },
+      { "stepNumber": 3, "instruction": "Начините перцы." },
+      { "stepNumber": 4, "instruction": "Приготовьте соус из томатной пасты и сметаны." },
+      { "stepNumber": 5, "instruction": "Тушите перцы в соусе 40 минут." }
+    ]
+  },
+  {
+    "id": "rec_goulash",
+    "name": "Гуляш по-венгерски",
+    "description": "Густой мясной гуляш с паприкой",
+    "prepTime": 20,
+    "cookTime": 90,
+    "totalTime": 110,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["hungarian"],
+    "cookingMethods": ["braising"],
+    "difficultyLevel": 3,
+    "ingredients": [
+      { "productId": "prod_beef", "amount": 600, "unit": "g", "amountInGrams": 600 },
+      { "productId": "prod_onion", "amount": 2, "unit": "piece", "amountInGrams": 220 },
+      { "productId": "prod_bell_pepper", "amount": 2, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_tomato", "amount": 3, "unit": "piece", "amountInGrams": 360 },
+      { "productId": "prod_paprika", "amount": 2, "unit": "tablespoon", "amountInGrams": 14 },
+      { "productId": "prod_garlic", "amount": 3, "unit": "piece", "amountInGrams": 9 },
+      { "productId": "prod_sunflower_oil", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Нарежьте мясо кубиками, обжарьте до корочки." },
+      { "stepNumber": 2, "instruction": "Добавьте лук, жарьте до мягкости." },
+      { "stepNumber": 3, "instruction": "Добавьте паприку, перец, помидоры." },
+      { "stepNumber": 4, "instruction": "Залейте водой, тушите 1.5 часа до мягкости мяса." }
+    ]
+  },
+  {
+    "id": "rec_draniki",
+    "name": "Драники",
+    "description": "Картофельные оладьи по-белорусски",
+    "prepTime": 15,
+    "cookTime": 20,
+    "totalTime": 35,
+    "servings": 4,
+    "mealTypes": ["breakfast", "dinner"],
+    "courses": ["main", "side"],
+    "cuisines": ["belarusian", "russian"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 2,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_potato", "amount": 6, "unit": "piece", "amountInGrams": 900 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_egg", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_flour", "amount": 2, "unit": "tablespoon", "amountInGrams": 25 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 },
+      { "productId": "prod_sunflower_oil", "amount": 100, "unit": "ml", "amountInGrams": 100 },
+      { "productId": "prod_sour_cream", "amount": 100, "unit": "g", "amountInGrams": 100, "isOptional": true }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Натрите картофель и лук на мелкой тёрке." },
+      { "stepNumber": 2, "instruction": "Отожмите лишнюю жидкость." },
+      { "stepNumber": 3, "instruction": "Добавьте яйцо, муку, соль." },
+      { "stepNumber": 4, "instruction": "Жарьте оладьи на масле с двух сторон." }
+    ]
+  },
+  {
+    "id": "rec_lazy_cabbage_rolls",
+    "name": "Ленивые голубцы",
+    "description": "Простая версия голубцов без заворачивания",
+    "prepTime": 20,
+    "cookTime": 40,
+    "totalTime": 60,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["braising"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_minced_meat", "amount": 500, "unit": "g", "amountInGrams": 500 },
+      { "productId": "prod_cabbage", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_rice", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_carrot", "amount": 1, "unit": "piece", "amountInGrams": 80 },
+      { "productId": "prod_tomato_paste", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_sour_cream", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Отварите рис до полуготовности." },
+      { "stepNumber": 2, "instruction": "Нашинкуйте капусту, смешайте с фаршем и рисом." },
+      { "stepNumber": 3, "instruction": "Сформируйте котлеты, выложите в форму." },
+      { "stepNumber": 4, "instruction": "Залейте соусом из сметаны и томатной пасты." },
+      { "stepNumber": 5, "instruction": "Тушите в духовке 40 минут.", "temperatureValue": 180, "temperatureUnit": "C" }
+    ]
+  },
+  {
+    "id": "rec_plov_vegetarian",
+    "name": "Плов вегетарианский",
+    "description": "Овощной плов без мяса",
+    "prepTime": 15,
+    "cookTime": 40,
+    "totalTime": 55,
+    "servings": 6,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["uzbek"],
+    "cookingMethods": ["braising"],
+    "difficultyLevel": 2,
+    "isVegan": true,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_rice", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_carrot", "amount": 3, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_onion", "amount": 2, "unit": "piece", "amountInGrams": 220 },
+      { "productId": "prod_chickpeas", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_garlic", "amount": 1, "unit": "piece", "amountInGrams": 30 },
+      { "productId": "prod_cumin", "amount": 1, "unit": "teaspoon", "amountInGrams": 3 },
+      { "productId": "prod_turmeric", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 1.5 },
+      { "productId": "prod_raisins", "amount": 50, "unit": "g", "amountInGrams": 50 },
+      { "productId": "prod_sunflower_oil", "amount": 80, "unit": "ml", "amountInGrams": 80 },
+      { "productId": "prod_salt", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Замочите нут на ночь, отварите до полуготовности." },
+      { "stepNumber": 2, "instruction": "Обжарьте лук, добавьте морковь соломкой." },
+      { "stepNumber": 3, "instruction": "Добавьте нут, специи, изюм." },
+      { "stepNumber": 4, "instruction": "Выложите рис, залейте водой." },
+      { "stepNumber": 5, "instruction": "Готовьте под крышкой без перемешивания." }
+    ]
+  },
+  {
+    "id": "rec_cheese_pancakes",
+    "name": "Творожная запеканка",
+    "description": "Нежная запеканка из творога",
+    "prepTime": 15,
+    "cookTime": 45,
+    "totalTime": 60,
+    "servings": 6,
+    "mealTypes": ["breakfast", "dessert"],
+    "courses": ["dessert"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["baking"],
+    "difficultyLevel": 2,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_cottage_cheese", "amount": 500, "unit": "g", "amountInGrams": 500 },
+      { "productId": "prod_egg", "amount": 2, "unit": "piece", "amountInGrams": 120 },
+      { "productId": "prod_sugar", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_flour", "amount": 3, "unit": "tablespoon", "amountInGrams": 38 },
+      { "productId": "prod_sour_cream", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_butter", "amount": 20, "unit": "g", "amountInGrams": 20 },
+      { "productId": "prod_vanilla", "amount": 1, "unit": "g", "amountInGrams": 1 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Смешайте творог с яйцами, сахаром, мукой и ванилином." },
+      { "stepNumber": 2, "instruction": "Смажьте форму маслом." },
+      { "stepNumber": 3, "instruction": "Выложите массу, смажьте сметаной." },
+      { "stepNumber": 4, "instruction": "Выпекайте при 180°C 40-45 минут.", "temperatureValue": 180, "temperatureUnit": "C" }
+    ]
+  },
+  {
+    "id": "rec_apple_charlotte",
+    "name": "Шарлотка с яблоками",
+    "description": "Простой яблочный пирог",
+    "prepTime": 15,
+    "cookTime": 40,
+    "totalTime": 55,
+    "servings": 8,
+    "mealTypes": ["dessert"],
+    "courses": ["dessert"],
+    "cuisines": ["russian"],
+    "cookingMethods": ["baking"],
+    "difficultyLevel": 2,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_apple", "amount": 4, "unit": "piece", "amountInGrams": 720 },
+      { "productId": "prod_egg", "amount": 3, "unit": "piece", "amountInGrams": 180 },
+      { "productId": "prod_sugar", "amount": 150, "unit": "g", "amountInGrams": 150 },
+      { "productId": "prod_flour", "amount": 150, "unit": "g", "amountInGrams": 150 },
+      { "productId": "prod_butter", "amount": 20, "unit": "g", "amountInGrams": 20 },
+      { "productId": "prod_cinnamon", "amount": 1, "unit": "teaspoon", "amountInGrams": 3 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Взбейте яйца с сахаром до пышности." },
+      { "stepNumber": 2, "instruction": "Аккуратно введите муку." },
+      { "stepNumber": 3, "instruction": "Нарежьте яблоки дольками." },
+      { "stepNumber": 4, "instruction": "Выложите яблоки в форму, залейте тестом." },
+      { "stepNumber": 5, "instruction": "Выпекайте при 180°C 35-40 минут.", "temperatureValue": 180, "temperatureUnit": "C" }
+    ]
+  },
+  {
+    "id": "rec_banana_bread",
+    "name": "Банановый хлеб",
+    "description": "Влажный хлеб из спелых бананов",
+    "prepTime": 15,
+    "cookTime": 55,
+    "totalTime": 70,
+    "servings": 10,
+    "mealTypes": ["breakfast", "dessert"],
+    "courses": ["dessert"],
+    "cuisines": ["american"],
+    "cookingMethods": ["baking"],
+    "difficultyLevel": 2,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_banana", "amount": 3, "unit": "piece", "amountInGrams": 360 },
+      { "productId": "prod_flour", "amount": 280, "unit": "g", "amountInGrams": 280 },
+      { "productId": "prod_sugar", "amount": 150, "unit": "g", "amountInGrams": 150 },
+      { "productId": "prod_egg", "amount": 2, "unit": "piece", "amountInGrams": 120 },
+      { "productId": "prod_butter", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_baking_powder", "amount": 1, "unit": "teaspoon", "amountInGrams": 5 },
+      { "productId": "prod_walnut", "amount": 50, "unit": "g", "amountInGrams": 50, "isOptional": true }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Разомните бананы вилкой." },
+      { "stepNumber": 2, "instruction": "Смешайте растопленное масло с сахаром и яйцами." },
+      { "stepNumber": 3, "instruction": "Добавьте бананы, муку и разрыхлитель." },
+      { "stepNumber": 4, "instruction": "Выложите в форму, посыпьте орехами." },
+      { "stepNumber": 5, "instruction": "Выпекайте при 180°C 50-55 минут.", "temperatureValue": 180, "temperatureUnit": "C" }
+    ]
+  },
+  {
+    "id": "rec_chocolate_mug_cake",
+    "name": "Шоколадный кекс в кружке",
+    "description": "Быстрый десерт в микроволновке",
+    "prepTime": 5,
+    "cookTime": 2,
+    "totalTime": 7,
+    "servings": 1,
+    "mealTypes": ["dessert"],
+    "courses": ["dessert"],
+    "cuisines": ["american"],
+    "cookingMethods": ["baking"],
+    "difficultyLevel": 1,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_flour", "amount": 4, "unit": "tablespoon", "amountInGrams": 50 },
+      { "productId": "prod_sugar", "amount": 3, "unit": "tablespoon", "amountInGrams": 38 },
+      { "productId": "prod_cocoa", "amount": 2, "unit": "tablespoon", "amountInGrams": 14 },
+      { "productId": "prod_egg", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_milk", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 },
+      { "productId": "prod_sunflower_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Смешайте сухие ингредиенты в кружке." },
+      { "stepNumber": 2, "instruction": "Добавьте яйцо, молоко и масло, перемешайте." },
+      { "stepNumber": 3, "instruction": "Готовьте в микроволновке 1.5-2 минуты." }
+    ]
+  },
+  {
+    "id": "rec_smoothie_bowl",
+    "name": "Смузи-боул с ягодами",
+    "description": "Полезный завтрак из замороженных фруктов",
+    "prepTime": 10,
+    "cookTime": 0,
+    "totalTime": 10,
+    "servings": 2,
+    "mealTypes": ["breakfast"],
+    "courses": ["main"],
+    "cuisines": ["international"],
+    "cookingMethods": ["raw"],
+    "difficultyLevel": 1,
+    "isVegan": true,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_banana", "amount": 2, "unit": "piece", "amountInGrams": 240 },
+      { "productId": "prod_yogurt", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_honey", "amount": 1, "unit": "tablespoon", "amountInGrams": 20 },
+      { "productId": "prod_oats", "amount": 30, "unit": "g", "amountInGrams": 30 },
+      { "productId": "prod_almond", "amount": 20, "unit": "g", "amountInGrams": 20, "isOptional": true }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Заморозьте бананы заранее." },
+      { "stepNumber": 2, "instruction": "Взбейте бананы с йогуртом в блендере." },
+      { "stepNumber": 3, "instruction": "Выложите в миску, украсьте овсянкой и орехами." }
+    ]
+  },
+  {
+    "id": "rec_tomato_soup",
+    "name": "Томатный суп-пюре",
+    "description": "Кремовый суп из свежих томатов",
+    "prepTime": 15,
+    "cookTime": 30,
+    "totalTime": 45,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["soup"],
+    "cuisines": ["mediterranean"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 2,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_tomato", "amount": 6, "unit": "piece", "amountInGrams": 720 },
+      { "productId": "prod_onion", "amount": 1, "unit": "piece", "amountInGrams": 110 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_vegetable_broth", "amount": 500, "unit": "ml", "amountInGrams": 500 },
+      { "productId": "prod_cream", "amount": 100, "unit": "ml", "amountInGrams": 100 },
+      { "productId": "prod_olive_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_basil", "amount": 10, "unit": "g", "amountInGrams": 10 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Обжарьте лук и чеснок на масле." },
+      { "stepNumber": 2, "instruction": "Добавьте нарезанные томаты, тушите 10 минут." },
+      { "stepNumber": 3, "instruction": "Залейте бульоном, варите 15 минут." },
+      { "stepNumber": 4, "instruction": "Пюрируйте блендером, добавьте сливки и базилик." }
+    ]
+  },
+  {
+    "id": "rec_hummus",
+    "name": "Хумус",
+    "description": "Паста из нута с тахини",
+    "prepTime": 15,
+    "cookTime": 60,
+    "totalTime": 75,
+    "servings": 6,
+    "mealTypes": ["snack"],
+    "courses": ["appetizer"],
+    "cuisines": ["mediterranean"],
+    "cookingMethods": ["boiling"],
+    "difficultyLevel": 2,
+    "isVegan": true,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_chickpeas", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_sesame", "amount": 50, "unit": "g", "amountInGrams": 50 },
+      { "productId": "prod_olive_oil", "amount": 4, "unit": "tablespoon", "amountInGrams": 60 },
+      { "productId": "prod_lemon", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_cumin", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 1.5 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Замочите нут на ночь, отварите до мягкости." },
+      { "stepNumber": 2, "instruction": "Приготовьте тахини из кунжута в блендере." },
+      { "stepNumber": 3, "instruction": "Смешайте нут, тахини, масло, лимонный сок, чеснок." },
+      { "stepNumber": 4, "instruction": "Пюрируйте до однородности." }
+    ]
+  },
+  {
+    "id": "rec_bruschetta",
+    "name": "Брускетта с томатами",
+    "description": "Итальянская закуска с томатами и базиликом",
+    "prepTime": 15,
+    "cookTime": 5,
+    "totalTime": 20,
+    "servings": 4,
+    "mealTypes": ["snack"],
+    "courses": ["appetizer"],
+    "cuisines": ["italian"],
+    "cookingMethods": ["baking"],
+    "difficultyLevel": 1,
+    "isVegan": true,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_bread", "amount": 200, "unit": "g", "amountInGrams": 200 },
+      { "productId": "prod_tomato", "amount": 4, "unit": "piece", "amountInGrams": 480 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_basil", "amount": 15, "unit": "g", "amountInGrams": 15 },
+      { "productId": "prod_olive_oil", "amount": 3, "unit": "tablespoon", "amountInGrams": 45 },
+      { "productId": "prod_balsamic_vinegar", "amount": 1, "unit": "tablespoon", "amountInGrams": 15 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Нарежьте хлеб ломтиками, подсушите в духовке." },
+      { "stepNumber": 2, "instruction": "Натрите хлеб чесноком." },
+      { "stepNumber": 3, "instruction": "Нарежьте томаты мелкими кубиками, смешайте с базиликом, маслом и уксусом." },
+      { "stepNumber": 4, "instruction": "Выложите томатную смесь на хлеб." }
+    ]
+  },
+  {
+    "id": "rec_eggplant_dip",
+    "name": "Баба гануш",
+    "description": "Закуска из запечённых баклажанов",
+    "prepTime": 15,
+    "cookTime": 40,
+    "totalTime": 55,
+    "servings": 4,
+    "mealTypes": ["snack"],
+    "courses": ["appetizer"],
+    "cuisines": ["mediterranean"],
+    "cookingMethods": ["baking"],
+    "difficultyLevel": 2,
+    "isVegan": true,
+    "isVegetarian": true,
+    "ingredients": [
+      { "productId": "prod_eggplant", "amount": 2, "unit": "piece", "amountInGrams": 600 },
+      { "productId": "prod_sesame", "amount": 30, "unit": "g", "amountInGrams": 30 },
+      { "productId": "prod_garlic", "amount": 2, "unit": "piece", "amountInGrams": 6 },
+      { "productId": "prod_lemon", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_olive_oil", "amount": 2, "unit": "tablespoon", "amountInGrams": 30 },
+      { "productId": "prod_parsley", "amount": 10, "unit": "g", "amountInGrams": 10 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Наколите баклажаны вилкой, запеките при 200°C 40 минут.", "temperatureValue": 200, "temperatureUnit": "C" },
+      { "stepNumber": 2, "instruction": "Остудите, снимите кожицу." },
+      { "stepNumber": 3, "instruction": "Пюрируйте мякоть с тахини, чесноком и лимонным соком." },
+      { "stepNumber": 4, "instruction": "Посыпьте петрушкой, полейте маслом." }
+    ]
+  },
+  {
+    "id": "rec_fish_in_batter",
+    "name": "Рыба в кляре",
+    "description": "Хрустящая жареная треска",
+    "prepTime": 15,
+    "cookTime": 15,
+    "totalTime": 30,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["international"],
+    "cookingMethods": ["frying"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_cod", "amount": 500, "unit": "g", "amountInGrams": 500 },
+      { "productId": "prod_flour", "amount": 100, "unit": "g", "amountInGrams": 100 },
+      { "productId": "prod_egg", "amount": 1, "unit": "piece", "amountInGrams": 60 },
+      { "productId": "prod_milk", "amount": 100, "unit": "ml", "amountInGrams": 100 },
+      { "productId": "prod_sunflower_oil", "amount": 200, "unit": "ml", "amountInGrams": 200 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Нарежьте рыбу порционными кусками." },
+      { "stepNumber": 2, "instruction": "Приготовьте кляр из яйца, муки и молока." },
+      { "stepNumber": 3, "instruction": "Обмакните рыбу в кляр." },
+      { "stepNumber": 4, "instruction": "Обжарьте в большом количестве масла до золотистого цвета." }
+    ]
+  },
+  {
+    "id": "rec_shrimp_pasta",
+    "name": "Паста с креветками",
+    "description": "Паста в чесночно-сливочном соусе с креветками",
+    "prepTime": 10,
+    "cookTime": 20,
+    "totalTime": 30,
+    "servings": 4,
+    "mealTypes": ["lunch", "dinner"],
+    "courses": ["main"],
+    "cuisines": ["italian"],
+    "cookingMethods": ["boiling", "frying"],
+    "difficultyLevel": 2,
+    "ingredients": [
+      { "productId": "prod_pasta", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_shrimp", "amount": 400, "unit": "g", "amountInGrams": 400 },
+      { "productId": "prod_garlic", "amount": 4, "unit": "piece", "amountInGrams": 12 },
+      { "productId": "prod_cream", "amount": 200, "unit": "ml", "amountInGrams": 200 },
+      { "productId": "prod_butter", "amount": 30, "unit": "g", "amountInGrams": 30 },
+      { "productId": "prod_parsley", "amount": 20, "unit": "g", "amountInGrams": 20 },
+      { "productId": "prod_lemon", "amount": 0.5, "unit": "piece", "amountInGrams": 30 },
+      { "productId": "prod_salt", "amount": 0.5, "unit": "teaspoon", "amountInGrams": 2 }
+    ],
+    "steps": [
+      { "stepNumber": 1, "instruction": "Отварите пасту до состояния аль денте." },
+      { "stepNumber": 2, "instruction": "Обжарьте чеснок на масле, добавьте креветки." },
+      { "stepNumber": 3, "instruction": "Влейте сливки, прогрейте." },
+      { "stepNumber": 4, "instruction": "Смешайте с пастой, добавьте лимонный сок и петрушку." }
+    ]
+  }
+]

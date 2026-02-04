@@ -11,7 +11,7 @@
         "--context",
         "claude-code",
         "--project",
-        "/home/dzerik/IdeaProjects/codex-stateless-runner-sber"
+        "/home/dzerik/Development/food-manager"
       ],
       "env": {}
     },
