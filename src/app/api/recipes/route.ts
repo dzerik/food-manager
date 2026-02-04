@@ -136,9 +136,9 @@ const ingredientSchema = z.object({
   amount: z.number().min(0),
   unit: z.string(),
   amountInGrams: z.number().min(0),
-  preparation: z.string().optional(),
-  notes: z.string().optional(),
-  groupName: z.string().optional(),
+  preparation: z.string().optional().nullable(),
+  notes: z.string().optional().nullable(),
+  groupName: z.string().optional().nullable(),
   isOptional: z.boolean().default(false),
   sortOrder: z.number().default(0),
 });
@@ -146,10 +146,10 @@ const ingredientSchema = z.object({
 const stepSchema = z.object({
   stepNumber: z.number().positive(),
   instruction: z.string().min(1),
-  durationMinutes: z.number().optional(),
-  temperatureValue: z.number().optional(),
-  temperatureUnit: z.enum(["C", "F"]).optional(),
-  tips: z.array(z.string()).optional(),
+  durationMinutes: z.number().optional().nullable(),
+  temperatureValue: z.number().optional().nullable(),
+  temperatureUnit: z.enum(["C", "F"]).optional().nullable(),
+  tips: z.array(z.string()).optional().nullable(),
 });
 
 const createRecipeSchema = z.object({

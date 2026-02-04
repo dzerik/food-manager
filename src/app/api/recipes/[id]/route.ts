@@ -62,21 +62,21 @@ const ingredientSchema = z.object({
   amount: z.number().min(0),
   unit: z.string(),
   amountInGrams: z.number().min(0),
-  preparation: z.string().optional(),
-  notes: z.string().optional(),
-  groupName: z.string().optional(),
+  preparation: z.string().optional().nullable(),
+  notes: z.string().optional().nullable(),
+  groupName: z.string().optional().nullable(),
   isOptional: z.boolean().default(false),
   sortOrder: z.number().default(0),
-});
+}).passthrough(); // Allow extra fields like id, recipeId, product
 
 const stepSchema = z.object({
   stepNumber: z.number().positive(),
   instruction: z.string().min(1),
-  durationMinutes: z.number().optional(),
-  temperatureValue: z.number().optional(),
-  temperatureUnit: z.enum(["C", "F"]).optional(),
-  tips: z.array(z.string()).optional(),
-});
+  durationMinutes: z.number().optional().nullable(),
+  temperatureValue: z.number().optional().nullable(),
+  temperatureUnit: z.enum(["C", "F"]).optional().nullable(),
+  tips: z.array(z.string()).optional().nullable(),
+}).passthrough(); // Allow extra fields like id, recipeId, imageUrl
 
 const updateRecipeSchema = z.object({
   name: z.string().min(1).optional(),
@@ -115,7 +115,14 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const data = updateRecipeSchema.parse(body);
+    console.log("PUT /api/recipes/[id] body:", JSON.stringify(body, null, 2));
+
+    const parseResult = updateRecipeSchema.safeParse(body);
+    if (!parseResult.success) {
+      console.error("Zod validation errors:", JSON.stringify(parseResult.error.issues, null, 2));
+      return NextResponse.json({ error: parseResult.error.issues }, { status: 400 });
+    }
+    const data = parseResult.data;
 
     const { ingredients, steps, mealTypes, courses, cuisines, cookingMethods, occasions, seasons, ...recipeData } = data;
 
@@ -146,15 +153,26 @@ export async function PUT(
           ...(ingredients && {
             ingredients: {
               create: ingredients.map((ing, index) => ({
-                ...ing,
-                sortOrder: ing.sortOrder || index,
+                productId: ing.productId,
+                amount: ing.amount,
+                unit: ing.unit,
+                amountInGrams: ing.amountInGrams,
+                preparation: ing.preparation,
+                notes: ing.notes,
+                groupName: ing.groupName,
+                isOptional: ing.isOptional ?? false,
+                sortOrder: ing.sortOrder ?? index,
               })),
             },
           }),
           ...(steps && {
             steps: {
               create: steps.map((step) => ({
-                ...step,
+                stepNumber: step.stepNumber,
+                instruction: step.instruction,
+                durationMinutes: step.durationMinutes,
+                temperatureValue: step.temperatureValue,
+                temperatureUnit: step.temperatureUnit,
                 tips: step.tips ? JSON.stringify(step.tips) : null,
               })),
             },
@@ -174,9 +192,6 @@ export async function PUT(
 
     return NextResponse.json(recipe);
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: error.issues }, { status: 400 });
-    }
     console.error("Error updating recipe:", error);
     return NextResponse.json({ error: "Failed to update recipe" }, { status: 500 });
   }
