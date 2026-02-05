@@ -20,13 +20,10 @@ export async function GET(request: NextRequest) {
     const searchParams = Object.fromEntries(request.nextUrl.searchParams);
     const query = querySchema.parse(searchParams);
 
+    // SQLite не поддерживает mode: insensitive, фильтруем в JS
+    const searchLower = query.search?.toLowerCase();
+
     const where = {
-      ...(query.search && {
-        name: {
-          contains: query.search,
-          mode: "insensitive" as const,
-        },
-      }),
       ...(query.difficulty && { difficultyLevel: query.difficulty }),
       ...(query.maxTime && { totalTime: { lte: query.maxTime } }),
       ...(query.isVegan && { isVegan: true }),
@@ -34,64 +31,70 @@ export async function GET(request: NextRequest) {
       ...(query.cuisine && {
         cuisines: {
           contains: query.cuisine,
-          mode: "insensitive" as const,
         },
       }),
       ...(query.mealType && {
         mealTypes: {
           contains: query.mealType,
-          mode: "insensitive" as const,
         },
       }),
       ...(query.course && {
         courses: {
           contains: query.course,
-          mode: "insensitive" as const,
         },
       }),
     };
 
-    const [recipes, total] = await Promise.all([
-      db.recipe.findMany({
-        where,
-        select: {
-          id: true,
-          name: true,
-          description: true,
-          imageUrl: true,
-          prepTime: true,
-          cookTime: true,
-          totalTime: true,
-          servings: true,
-          difficultyLevel: true,
-          mealTypes: true,
-          courses: true,
-          cuisines: true,
-          allergens: true,
-          isVegan: true,
-          isVegetarian: true,
-          caloriesPerServing: true,
-          proteinPerServing: true,
-          ingredients: {
-            select: {
-              product: {
-                select: {
-                  dietaryInfo: {
-                    select: {
-                      allergens: true,
-                    },
+    // Загружаем рецепты
+    const allRecipes = await db.recipe.findMany({
+      where,
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        imageUrl: true,
+        prepTime: true,
+        cookTime: true,
+        totalTime: true,
+        servings: true,
+        difficultyLevel: true,
+        mealTypes: true,
+        courses: true,
+        cuisines: true,
+        allergens: true,
+        isVegan: true,
+        isVegetarian: true,
+        caloriesPerServing: true,
+        proteinPerServing: true,
+        ingredients: {
+          select: {
+            product: {
+              select: {
+                dietaryInfo: {
+                  select: {
+                    allergens: true,
                   },
                 },
               },
             },
           },
         },
-        skip: (query.page - 1) * query.limit,
-        take: query.limit,
-        orderBy: { name: "asc" },
-      }),
-      db.recipe.count({ where }),
-    ]);
+      },
+      orderBy: { name: "asc" },
+    });
+
+    // Фильтрация по имени (case-insensitive) на стороне JS
+    const filteredRecipes = searchLower
+      ? allRecipes.filter((r) => r.name.toLowerCase().includes(searchLower))
+      : allRecipes;
+
+    const total = filteredRecipes.length;
+
+    // Пагинация
+    const recipes = filteredRecipes.slice(
+      (query.page - 1) * query.limit,
+      query.page * query.limit
+    );
 
     // Parse JSON fields and collect allergens from ingredients
     const parsedRecipes = recipes.map((recipe) => {

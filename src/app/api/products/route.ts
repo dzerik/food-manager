@@ -16,27 +16,32 @@ export async function GET(request: NextRequest) {
 
     const where = {
       ...(category && { category }),
-      ...(search && {
-        name: {
-          contains: search,
-          mode: "insensitive" as const,
-        },
-      }),
     };
 
-    const [products, total] = await Promise.all([
-      db.product.findMany({
-        where,
-        include: {
-          nutrition: true,
-          dietaryInfo: true,
-        },
-        skip: (page - 1) * limit,
-        take: limit,
-        orderBy: { name: "asc" },
-      }),
-      db.product.count({ where }),
-    ]);
+    // SQLite не поддерживает mode: insensitive, фильтруем в JS
+    const searchLower = search?.toLowerCase();
+
+    const allProducts = await db.product.findMany({
+      where,
+      include: {
+        nutrition: true,
+        dietaryInfo: true,
+      },
+      orderBy: { name: "asc" },
+    });
+
+    // Фильтрация по имени (case-insensitive) на стороне JS
+    const filteredProducts = searchLower
+      ? allProducts.filter((p) => p.name.toLowerCase().includes(searchLower))
+      : allProducts;
+
+    const total = filteredProducts.length;
+
+    // Пагинация
+    const products = filteredProducts.slice(
+      (page - 1) * limit,
+      page * limit
+    );
 
     return NextResponse.json({
       products,
