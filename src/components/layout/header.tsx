@@ -39,6 +39,9 @@ export function Header() {
           <Link href="/shopping-list" className="transition-colors hover:text-foreground/80">
             Список покупок
           </Link>
+          <Link href="/settings" className="transition-colors hover:text-foreground/80">
+            Настройки
+          </Link>
         </nav>
 
         <div className="ml-auto flex items-center gap-2">

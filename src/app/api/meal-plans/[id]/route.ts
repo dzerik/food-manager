@@ -108,6 +108,62 @@ export async function POST(
   }
 }
 
+const updateMealPlanSchema = z.object({
+  name: z.string().optional(),
+  startDate: z.string().transform((s) => new Date(s)).optional(),
+  endDate: z.string().transform((s) => new Date(s)).optional(),
+});
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+    const body = await request.json();
+    const data = updateMealPlanSchema.parse(body);
+
+    // Verify ownership
+    const existingPlan = await db.mealPlan.findUnique({
+      where: { id, userId: session.user.id },
+    });
+
+    if (!existingPlan) {
+      return NextResponse.json({ error: "Meal plan not found" }, { status: 404 });
+    }
+
+    const mealPlan = await db.mealPlan.update({
+      where: { id },
+      data: {
+        ...(data.name !== undefined && { name: data.name }),
+        ...(data.startDate && { startDate: data.startDate }),
+        ...(data.endDate && { endDate: data.endDate }),
+      },
+      include: {
+        recipes: {
+          include: {
+            recipe: true,
+          },
+          orderBy: [{ date: "asc" }, { mealType: "asc" }],
+        },
+      },
+    });
+
+    return NextResponse.json(mealPlan);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.issues }, { status: 400 });
+    }
+    console.error("Error updating meal plan:", error);
+    return NextResponse.json({ error: "Failed to update meal plan" }, { status: 500 });
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

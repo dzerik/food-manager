@@ -1,20 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ShoppingCart, Calendar, Download, FileText, FileJson, Copy, Check } from "lucide-react";
+import { ProductEditDialog } from "@/components/products/product-edit-dialog";
+import {
+  ShoppingCart,
+  Calendar,
+  Download,
+  FileText,
+  FileJson,
+  Copy,
+  Check,
+  ChevronDown,
+  X,
+} from "lucide-react";
 import { toast } from "sonner";
-import { format } from "date-fns";
+import { format, isAfter, isBefore, startOfDay } from "date-fns";
 import { ru } from "date-fns/locale";
 
 interface ShoppingItem {
@@ -31,12 +43,12 @@ interface ShoppingItem {
   isExcluded: boolean;
   excludeReason?: string;
   allergens: string[];
-  isChecked: boolean;
+  fromPlans?: string[];
 }
 
 interface ShoppingListData {
-  mealPlanId: string;
-  mealPlanName: string | null;
+  mealPlanIds: string[];
+  mealPlans: MealPlanSummary[];
   startDate: string;
   endDate: string;
   totalItems: number;
@@ -67,6 +79,7 @@ const categoryLabels: Record<string, string> = {
   sauces: "Соусы",
   canned: "Консервы",
   baking: "Для выпечки",
+  bakery: "Выпечка",
   sweeteners: "Сладкое",
   nuts: "Орехи",
   seeds: "Семена",
@@ -76,6 +89,8 @@ const categoryLabels: Record<string, string> = {
   dairy_alternatives: "Растительные альтернативы",
   protein: "Белок",
   sweets: "Сладости",
+  beverages: "Напитки",
+  other: "Другое",
 };
 
 function formatAmount(grams: number, unit: string, gramsPerPiece?: number | null): string {
@@ -89,106 +104,142 @@ function formatAmount(grams: number, unit: string, gramsPerPiece?: number | null
   return grams >= 1000 ? `${(grams / 1000).toFixed(1)} кг` : `${Math.round(grams)} г`;
 }
 
+function getPlanLabel(plan: MealPlanSummary, includeDates = false): string {
+  const name = plan.name || "План питания";
+  if (includeDates) {
+    const dates = `${format(new Date(plan.startDate), "d MMM", { locale: ru })} - ${format(new Date(plan.endDate), "d MMM", { locale: ru })}`;
+    return `${name} (${dates})`;
+  }
+  return name;
+}
+
 export default function ShoppingListPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [mealPlan, setMealPlan] = useState<MealPlanSummary | null>(null);
+  const [allPlans, setAllPlans] = useState<MealPlanSummary[]>([]);
+  const [selectedPlanIds, setSelectedPlanIds] = useState<Set<string>>(new Set());
   const [shoppingData, setShoppingData] = useState<ShoppingListData | null>(null);
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
+  const [isPlansDropdownOpen, setIsPlansDropdownOpen] = useState(false);
 
-  // Load checked items from localStorage
-  useEffect(() => {
-    const stored = localStorage.getItem("shopping-list-checked");
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (parsed.mealPlanId && parsed.items) {
-          setCheckedItems(new Set(parsed.items));
-        }
-      } catch {
-        // Ignore invalid data
-      }
-    }
-  }, []);
+  // Product edit dialog
+  const [editProductId, setEditProductId] = useState<string | null>(null);
+  const [isProductDialogOpen, setIsProductDialogOpen] = useState(false);
 
-  // Fetch latest meal plan and shopping list
+  // Fetch all available plans (current and future)
   useEffect(() => {
-    async function fetchData() {
+    async function fetchPlans() {
       try {
-        // Get latest meal plan
-        const plansRes = await fetch("/api/meal-plans?limit=1");
-        if (!plansRes.ok) {
-          if (plansRes.status === 401) {
+        const res = await fetch("/api/meal-plans?limit=50");
+        if (!res.ok) {
+          if (res.status === 401) {
             window.location.href = "/login";
             return;
           }
           throw new Error("Failed to fetch plans");
         }
 
-        const plansData = await plansRes.json();
-        const plans = plansData.mealPlans || [];
+        const data = await res.json();
+        const plans: MealPlanSummary[] = data.mealPlans || [];
 
-        if (plans.length === 0) {
-          setIsLoading(false);
-          return;
+        // Filter to current and future plans only
+        const today = startOfDay(new Date());
+        const relevantPlans = plans.filter((p) => {
+          const endDate = new Date(p.endDate);
+          return !isBefore(endDate, today);
+        });
+
+        setAllPlans(relevantPlans);
+
+        // Auto-select the first (most recent) plan
+        if (relevantPlans.length > 0) {
+          setSelectedPlanIds(new Set([relevantPlans[0].id]));
         }
-
-        const plan = plans[0];
-        setMealPlan(plan);
-
-        // Fetch shopping list
-        const listRes = await fetch(`/api/meal-plans/${plan.id}/shopping-list`);
-        if (!listRes.ok) throw new Error("Failed to fetch shopping list");
-
-        const listData = await listRes.json();
-        setShoppingData(listData);
-
-        // Initialize checked items with isAlwaysOwned products
-        const stored = localStorage.getItem("shopping-list-checked");
-        let initialChecked = new Set<string>();
-
-        if (stored) {
-          try {
-            const parsed = JSON.parse(stored);
-            if (parsed.mealPlanId === plan.id && parsed.items) {
-              initialChecked = new Set(parsed.items);
-            }
-          } catch {
-            // Ignore
-          }
-        }
-
-        // Add isAlwaysOwned items to checked
-        for (const item of listData.items) {
-          if (item.isAlwaysOwned) {
-            initialChecked.add(item.productId);
-          }
-        }
-
-        setCheckedItems(initialChecked);
       } catch (error) {
-        console.error("Failed to fetch shopping list:", error);
-        toast.error("Не удалось загрузить список покупок");
+        console.error("Failed to fetch plans:", error);
+        toast.error("Не удалось загрузить планы питания");
       } finally {
         setIsLoading(false);
       }
     }
 
-    fetchData();
+    fetchPlans();
   }, []);
+
+  // Fetch consolidated shopping list when selected plans change
+  const fetchShoppingList = useCallback(async () => {
+    if (selectedPlanIds.size === 0) {
+      setShoppingData(null);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/shopping-list/consolidated", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mealPlanIds: Array.from(selectedPlanIds) }),
+      });
+
+      if (!res.ok) throw new Error("Failed to fetch shopping list");
+
+      const listData: ShoppingListData = await res.json();
+      setShoppingData(listData);
+
+      // Load checked items from localStorage
+      const storageKey = `shopping-list-checked-${Array.from(selectedPlanIds).sort().join("-")}`;
+      const stored = localStorage.getItem(storageKey);
+      let initialChecked = new Set<string>();
+
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            initialChecked = new Set(parsed);
+          }
+        } catch {
+          // Ignore
+        }
+      }
+
+      // Add isAlwaysOwned items to checked
+      for (const item of listData.items) {
+        if (item.isAlwaysOwned) {
+          initialChecked.add(item.productId);
+        }
+      }
+
+      setCheckedItems(initialChecked);
+    } catch (error) {
+      console.error("Failed to fetch shopping list:", error);
+      toast.error("Не удалось загрузить список покупок");
+    }
+  }, [selectedPlanIds]);
+
+  useEffect(() => {
+    if (!isLoading && selectedPlanIds.size > 0) {
+      fetchShoppingList();
+    }
+  }, [isLoading, selectedPlanIds, fetchShoppingList]);
 
   // Save checked items to localStorage
   useEffect(() => {
-    if (mealPlan) {
-      localStorage.setItem(
-        "shopping-list-checked",
-        JSON.stringify({
-          mealPlanId: mealPlan.id,
-          items: Array.from(checkedItems),
-        })
-      );
+    if (selectedPlanIds.size > 0 && shoppingData) {
+      const storageKey = `shopping-list-checked-${Array.from(selectedPlanIds).sort().join("-")}`;
+      localStorage.setItem(storageKey, JSON.stringify(Array.from(checkedItems)));
     }
-  }, [checkedItems, mealPlan]);
+  }, [checkedItems, selectedPlanIds, shoppingData]);
+
+  function togglePlanSelection(planId: string) {
+    setSelectedPlanIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(planId)) {
+        next.delete(planId);
+      } else {
+        next.add(planId);
+      }
+      return next;
+    });
+  }
 
   function toggleItem(productId: string) {
     setCheckedItems((prev) => {
@@ -208,18 +259,30 @@ export default function ShoppingListPage() {
     if (checked) {
       setCheckedItems(new Set(shoppingData.items.map((i) => i.productId)));
     } else {
-      // Keep isAlwaysOwned items checked
       setCheckedItems(
         new Set(shoppingData.items.filter((i) => i.isAlwaysOwned).map((i) => i.productId))
       );
     }
   }
 
+  function handleProductClick(productId: string) {
+    setEditProductId(productId);
+    setIsProductDialogOpen(true);
+  }
+
+  function handleProductSaved() {
+    // Refresh shopping list to get updated product data
+    fetchShoppingList();
+  }
+
   async function handleExport(format: "txt" | "csv" | "json") {
-    if (!mealPlan) return;
+    if (!shoppingData || selectedPlanIds.size === 0) return;
+
+    // Use first plan for export (or implement multi-plan export)
+    const planId = Array.from(selectedPlanIds)[0];
 
     try {
-      const res = await fetch(`/api/meal-plans/${mealPlan.id}/shopping-list/export?format=${format}`);
+      const res = await fetch(`/api/meal-plans/${planId}/shopping-list/export?format=${format}`);
       if (!res.ok) throw new Error("Export failed");
 
       if (format === "json") {
@@ -257,7 +320,6 @@ export default function ShoppingListPage() {
       (i) => !checkedItems.has(i.productId) && !i.isExcluded
     );
 
-    // Group by category
     const grouped = uncheckedItems.reduce((acc, item) => {
       const cat = categoryLabels[item.category] || item.category;
       if (!acc[cat]) acc[cat] = [];
@@ -307,7 +369,7 @@ export default function ShoppingListPage() {
     );
   }
 
-  if (!mealPlan || !shoppingData) {
+  if (allPlans.length === 0) {
     return (
       <div className="min-h-screen">
         <Header />
@@ -316,7 +378,7 @@ export default function ShoppingListPage() {
           <Card>
             <CardContent className="flex flex-col items-center py-12 text-center">
               <ShoppingCart className="h-12 w-12 text-muted-foreground" />
-              <h3 className="mt-4 text-lg font-semibold">Нет плана питания</h3>
+              <h3 className="mt-4 text-lg font-semibold">Нет актуальных планов питания</h3>
               <p className="mt-2 text-muted-foreground">
                 Создайте план питания, чтобы получить список покупок
               </p>
@@ -333,13 +395,13 @@ export default function ShoppingListPage() {
     );
   }
 
-  const grouped = shoppingData.groupedByCategory;
+  const grouped = shoppingData?.groupedByCategory || {};
   const sortedCategories = Object.keys(grouped).sort();
 
-  const totalItems = shoppingData.items.filter((i) => !i.isExcluded).length;
-  const checkedCount = shoppingData.items.filter(
+  const totalItems = shoppingData?.items.filter((i) => !i.isExcluded).length || 0;
+  const checkedCount = shoppingData?.items.filter(
     (i) => !i.isExcluded && checkedItems.has(i.productId)
-  ).length;
+  ).length || 0;
   const remainingCount = totalItems - checkedCount;
 
   return (
@@ -349,20 +411,72 @@ export default function ShoppingListPage() {
         <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold">Список покупок</h1>
-            <p className="mt-2 text-muted-foreground">
-              На основе плана:{" "}
-              {format(new Date(shoppingData.startDate), "d MMMM", { locale: ru })} -{" "}
-              {format(new Date(shoppingData.endDate), "d MMMM", { locale: ru })}
-            </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {remainingCount > 0
-                ? `Осталось купить: ${remainingCount} из ${totalItems}`
-                : "Все продукты куплены!"}
-            </p>
+
+            {/* Plan selector */}
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <span className="text-sm text-muted-foreground">Планы:</span>
+              <DropdownMenu open={isPlansDropdownOpen} onOpenChange={setIsPlansDropdownOpen}>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="h-8">
+                    Выбрать планы
+                    <ChevronDown className="ml-2 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-80">
+                  {allPlans.map((plan) => (
+                    <DropdownMenuItem
+                      key={plan.id}
+                      className="flex items-center gap-2"
+                      onSelect={(e) => {
+                        e.preventDefault();
+                        togglePlanSelection(plan.id);
+                      }}
+                    >
+                      <Checkbox
+                        checked={selectedPlanIds.has(plan.id)}
+                        className="pointer-events-none"
+                      />
+                      <div className="flex-1 truncate">
+                        <div className="font-medium">{plan.name || "План питания"}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {format(new Date(plan.startDate), "d MMM", { locale: ru })} -{" "}
+                          {format(new Date(plan.endDate), "d MMM yyyy", { locale: ru })}
+                        </div>
+                      </div>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Selected plans badges */}
+              {Array.from(selectedPlanIds).map((planId) => {
+                const plan = allPlans.find((p) => p.id === planId);
+                if (!plan) return null;
+                return (
+                  <Badge key={planId} variant="secondary" className="gap-1">
+                    {getPlanLabel(plan, true)}
+                    <button
+                      onClick={() => togglePlanSelection(planId)}
+                      className="ml-1 hover:text-destructive"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </Badge>
+                );
+              })}
+            </div>
+
+            {shoppingData && (
+              <p className="mt-2 text-sm text-muted-foreground">
+                {remainingCount > 0
+                  ? `Осталось купить: ${remainingCount} из ${totalItems}`
+                  : "Все продукты куплены!"}
+              </p>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={copyToClipboard}>
+            <Button variant="outline" size="sm" onClick={copyToClipboard} disabled={!shoppingData}>
               {copiedToClipboard ? (
                 <Check className="mr-2 h-4 w-4" />
               ) : (
@@ -373,7 +487,7 @@ export default function ShoppingListPage() {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" disabled={!shoppingData}>
                   <Download className="mr-2 h-4 w-4" />
                   Экспорт
                 </Button>
@@ -398,87 +512,118 @@ export default function ShoppingListPage() {
               variant="ghost"
               size="sm"
               onClick={() => toggleAll(remainingCount > 0)}
+              disabled={!shoppingData}
             >
               {remainingCount > 0 ? "Отметить все" : "Сбросить"}
             </Button>
           </div>
         </div>
 
-        {/* Progress bar */}
-        <div className="mb-6">
-          <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-            <div
-              className="h-full bg-green-500 transition-all duration-300"
-              style={{ width: `${totalItems > 0 ? (checkedCount / totalItems) * 100 : 0}%` }}
-            />
-          </div>
-        </div>
+        {selectedPlanIds.size === 0 ? (
+          <Card>
+            <CardContent className="flex flex-col items-center py-12 text-center">
+              <ShoppingCart className="h-12 w-12 text-muted-foreground" />
+              <h3 className="mt-4 text-lg font-semibold">Выберите план питания</h3>
+              <p className="mt-2 text-muted-foreground">
+                Нажмите &quot;Выбрать планы&quot; чтобы сформировать список покупок
+              </p>
+            </CardContent>
+          </Card>
+        ) : shoppingData ? (
+          <>
+            {/* Progress bar */}
+            <div className="mb-6">
+              <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                <div
+                  className="h-full bg-green-500 transition-all duration-300"
+                  style={{ width: `${totalItems > 0 ? (checkedCount / totalItems) * 100 : 0}%` }}
+                />
+              </div>
+            </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {sortedCategories.map((category) => {
-            const items = grouped[category];
-            const categoryChecked = items.filter(
-              (i) => !i.isExcluded && checkedItems.has(i.productId)
-            ).length;
-            const categoryTotal = items.filter((i) => !i.isExcluded).length;
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {sortedCategories.map((category) => {
+                const items = grouped[category];
+                const categoryChecked = items.filter(
+                  (i) => !i.isExcluded && checkedItems.has(i.productId)
+                ).length;
+                const categoryTotal = items.filter((i) => !i.isExcluded).length;
 
-            return (
-              <Card key={category}>
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center justify-between text-lg">
-                    <span>{categoryLabels[category] || category}</span>
-                    <span className="text-sm font-normal text-muted-foreground">
-                      {categoryChecked}/{categoryTotal}
-                    </span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {items.map((item) => {
-                      const isChecked = checkedItems.has(item.productId);
-                      const isDisabled = item.isAlwaysOwned;
+                return (
+                  <Card key={category}>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="flex items-center justify-between text-lg">
+                        <span>{categoryLabels[category] || category}</span>
+                        <span className="text-sm font-normal text-muted-foreground">
+                          {categoryChecked}/{categoryTotal}
+                        </span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-2">
+                        {items.map((item) => {
+                          const isChecked = checkedItems.has(item.productId);
+                          const isDisabled = item.isAlwaysOwned;
 
-                      return (
-                        <li
-                          key={item.productId}
-                          className={`flex items-center gap-3 text-sm ${
-                            item.isExcluded
-                              ? "text-muted-foreground line-through opacity-50"
-                              : isChecked
-                                ? "text-muted-foreground line-through"
-                                : ""
-                          }`}
-                        >
-                          <Checkbox
-                            checked={isChecked}
-                            onCheckedChange={() => !item.isExcluded && toggleItem(item.productId)}
-                            disabled={item.isExcluded || isDisabled}
-                          />
-                          <span className="flex-1">{item.productName}</span>
-                          <span className="shrink-0 font-medium">
-                            {formatAmount(item.roundedGrams, item.unit, item.gramsPerPiece)}
-                            {item.packagesNeeded && (
-                              <span className="ml-1 text-xs text-muted-foreground">
-                                ({item.packagesNeeded} уп.)
+                          return (
+                            <li
+                              key={item.productId}
+                              className={`flex items-center gap-3 text-sm ${
+                                item.isExcluded
+                                  ? "text-muted-foreground line-through opacity-50"
+                                  : isChecked
+                                    ? "text-muted-foreground line-through"
+                                    : ""
+                              }`}
+                            >
+                              <Checkbox
+                                checked={isChecked}
+                                onCheckedChange={() => !item.isExcluded && toggleItem(item.productId)}
+                                disabled={item.isExcluded || isDisabled}
+                              />
+                              <button
+                                className="flex-1 text-left hover:underline cursor-pointer"
+                                onClick={() => handleProductClick(item.productId)}
+                              >
+                                {item.productName}
+                              </button>
+                              <span className="shrink-0 font-medium">
+                                {formatAmount(item.roundedGrams, item.unit, item.gramsPerPiece)}
+                                {item.packagesNeeded && (
+                                  <span className="ml-1 text-xs text-muted-foreground">
+                                    ({item.packagesNeeded} уп.)
+                                  </span>
+                                )}
                               </span>
-                            )}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
 
-        {shoppingData.excludedItems > 0 && (
-          <p className="mt-6 text-sm text-muted-foreground">
-            {shoppingData.excludedItems} продуктов исключено из-за аллергий
-          </p>
+            {shoppingData.excludedItems > 0 && (
+              <p className="mt-6 text-sm text-muted-foreground">
+                {shoppingData.excludedItems} продуктов исключено из-за аллергий
+              </p>
+            )}
+          </>
+        ) : (
+          <div className="flex justify-center py-12">
+            <div className="animate-pulse h-8 w-32 rounded bg-muted" />
+          </div>
         )}
       </main>
+
+      <ProductEditDialog
+        productId={editProductId}
+        open={isProductDialogOpen}
+        onOpenChange={setIsProductDialogOpen}
+        onSaved={handleProductSaved}
+      />
     </div>
   );
 }

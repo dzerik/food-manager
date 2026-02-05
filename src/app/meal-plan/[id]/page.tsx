@@ -26,12 +26,16 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Plus, Trash2, ShoppingCart, Calendar as CalendarIcon, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, ShoppingCart, Calendar as CalendarIcon, AlertTriangle, Pencil, Check } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { format, eachDayOfInterval, isSameDay } from "date-fns";
+import { format, eachDayOfInterval, isSameDay, addDays, differenceInDays } from "date-fns";
 import { ru } from "date-fns/locale";
 import { use } from "react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { DateRange } from "react-day-picker";
+import { cn } from "@/lib/utils";
 
 interface Recipe {
   id: string;
@@ -95,6 +99,11 @@ export default function MealPlanDetailPage({
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [userAllergies, setUserAllergies] = useState<string[]>([]);
   const [hideAllergenRecipes, setHideAllergenRecipes] = useState(true);
+  const [isEditingPeriod, setIsEditingPeriod] = useState(false);
+  const [editDateRange, setEditDateRange] = useState<DateRange>({ from: undefined, to: undefined });
+  const [isUpdatingPeriod, setIsUpdatingPeriod] = useState(false);
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [editName, setEditName] = useState("");
 
   useEffect(() => {
     async function fetchMealPlan() {
@@ -251,6 +260,80 @@ export default function MealPlanDetailPage({
     }
   }
 
+  function openEditPeriod() {
+    if (mealPlan) {
+      setEditDateRange({
+        from: new Date(mealPlan.startDate),
+        to: new Date(mealPlan.endDate),
+      });
+      setIsEditingPeriod(true);
+    }
+  }
+
+  async function handleUpdatePeriod() {
+    if (!editDateRange.from || !editDateRange.to) {
+      toast.error("Выберите период");
+      return;
+    }
+
+    setIsUpdatingPeriod(true);
+    try {
+      const res = await fetch(`/api/meal-plans/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          startDate: editDateRange.from.toISOString(),
+          endDate: editDateRange.to.toISOString(),
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update period");
+
+      const updated = await res.json();
+      setMealPlan(updated);
+      setIsEditingPeriod(false);
+      toast.success("Период обновлён");
+    } catch {
+      toast.error("Не удалось обновить период");
+    } finally {
+      setIsUpdatingPeriod(false);
+    }
+  }
+
+  function startEditingName() {
+    setEditName(mealPlan?.name || "");
+    setIsEditingName(true);
+  }
+
+  async function handleUpdateName() {
+    try {
+      const res = await fetch(`/api/meal-plans/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: editName || null,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update name");
+
+      const updated = await res.json();
+      setMealPlan(updated);
+      setIsEditingName(false);
+      toast.success("Название обновлено");
+    } catch {
+      toast.error("Не удалось обновить название");
+    }
+  }
+
+  function handleNameKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Enter") {
+      handleUpdateName();
+    } else if (e.key === "Escape") {
+      setIsEditingName(false);
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen">
@@ -301,13 +384,80 @@ export default function MealPlanDetailPage({
               </Link>
             </Button>
             <div>
-              <h1 className="text-2xl font-bold">
-                {mealPlan.name || "План питания"}
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                {format(new Date(mealPlan.startDate), "d MMMM", { locale: ru })} -{" "}
-                {format(new Date(mealPlan.endDate), "d MMMM yyyy", { locale: ru })}
-              </p>
+              {isEditingName ? (
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                    onKeyDown={handleNameKeyDown}
+                    onBlur={() => setIsEditingName(false)}
+                    placeholder="Название плана"
+                    className="text-2xl font-bold h-auto py-0 border-0 border-b-2 rounded-none focus-visible:ring-0 focus-visible:border-primary"
+                    autoFocus
+                  />
+                  <Button size="sm" variant="ghost" onClick={handleUpdateName}>
+                    <Check className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <h1
+                  className="text-2xl font-bold cursor-pointer hover:text-primary transition-colors flex items-center gap-2"
+                  onClick={startEditingName}
+                  title="Нажмите для редактирования"
+                >
+                  {mealPlan.name || "План питания"}
+                  <Pencil className="h-4 w-4 opacity-0 group-hover:opacity-100 text-muted-foreground" />
+                </h1>
+              )}
+              <Popover open={isEditingPeriod} onOpenChange={setIsEditingPeriod}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="h-auto p-0 text-sm text-muted-foreground hover:text-foreground"
+                    onClick={openEditPeriod}
+                  >
+                    <CalendarIcon className="mr-1 h-3 w-3" />
+                    {format(new Date(mealPlan.startDate), "d MMMM", { locale: ru })} -{" "}
+                    {format(new Date(mealPlan.endDate), "d MMMM yyyy", { locale: ru })}
+                    <span className="ml-2 text-xs">
+                      ({differenceInDays(new Date(mealPlan.endDate), new Date(mealPlan.startDate)) + 1} дн.)
+                    </span>
+                    <Pencil className="ml-1 h-3 w-3" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <div className="p-3 border-b">
+                    <div className="font-medium text-sm">Изменить период</div>
+                    <p className="text-xs text-muted-foreground">
+                      Выберите новый диапазон дат
+                    </p>
+                  </div>
+                  <Calendar
+                    mode="range"
+                    selected={editDateRange}
+                    onSelect={(range) => setEditDateRange(range || { from: undefined, to: undefined })}
+                    numberOfMonths={2}
+                    locale={ru}
+                    weekStartsOn={1}
+                  />
+                  <div className="p-3 border-t flex justify-end gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsEditingPeriod(false)}
+                    >
+                      Отмена
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={handleUpdatePeriod}
+                      disabled={!editDateRange.from || !editDateRange.to || isUpdatingPeriod}
+                    >
+                      {isUpdatingPeriod ? "Сохранение..." : "Сохранить"}
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
           <div className="flex items-center gap-2">
