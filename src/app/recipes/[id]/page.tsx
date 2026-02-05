@@ -6,13 +6,34 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RecipeActions } from "@/components/recipes/recipe-actions";
-import { Clock, Users, Flame, ChefHat, Thermometer, ArrowLeft } from "lucide-react";
+import { Clock, Users, Flame, ChefHat, Thermometer, ArrowLeft, Gauge, Zap } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  getDifficultyIndicator,
+  getTimeIndicator,
+  getCalorieIndicator,
+  formatTime,
+} from "@/lib/recipe-indicators";
 
 interface RecipePageProps {
   params: Promise<{ id: string }>;
 }
 
-const difficultyLabels = ["", "Очень легко", "Легко", "Средне", "Сложно", "Очень сложно"];
+const cuisineLabels: Record<string, string> = {
+  russian: "Русская",
+  italian: "Итальянская",
+  asian: "Азиатская",
+  french: "Французская",
+  mexican: "Мексиканская",
+  indian: "Индийская",
+  mediterranean: "Средиземноморская",
+  japanese: "Японская",
+  chinese: "Китайская",
+  thai: "Тайская",
+  middle_eastern: "Ближневосточная",
+  american: "Американская",
+  other: "Другая",
+};
 
 export default async function RecipePage({ params }: RecipePageProps) {
   const { id } = await params;
@@ -38,6 +59,12 @@ export default async function RecipePage({ params }: RecipePageProps) {
 
   const cuisines = recipe.cuisines ? (JSON.parse(recipe.cuisines) as string[]) : [];
   const mealTypes = JSON.parse(recipe.mealTypes) as string[];
+
+  const diffIndicator = getDifficultyIndicator(recipe.difficultyLevel);
+  const timeIndicator = getTimeIndicator(recipe.totalTime);
+  const calorieIndicator = recipe.caloriesPerServing
+    ? getCalorieIndicator(recipe.caloriesPerServing)
+    : null;
 
   // Group ingredients by groupName
   const groupedIngredients = recipe.ingredients.reduce((acc, ing) => {
@@ -71,39 +98,90 @@ export default async function RecipePage({ params }: RecipePageProps) {
               <p className="mt-2 text-lg text-muted-foreground">{recipe.description}</p>
             )}
 
-            {/* Meta Info */}
-            <div className="mt-6 flex flex-wrap gap-4">
-              <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-muted-foreground" />
-                <span>
-                  {recipe.prepTime > 0 && `${recipe.prepTime} мин подготовка`}
-                  {recipe.prepTime > 0 && recipe.cookTime > 0 && " + "}
-                  {recipe.cookTime > 0 && `${recipe.cookTime} мин готовка`}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-muted-foreground" />
-                <span>{recipe.servings} порций</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <ChefHat className="h-5 w-5 text-muted-foreground" />
-                <span>{difficultyLabels[recipe.difficultyLevel]}</span>
-              </div>
+            {/* Meta Info Cards */}
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {/* Time Card */}
+              <Card className={cn("border-2", timeIndicator.borderColor)}>
+                <CardContent className="p-3">
+                  <div className={cn("flex items-center gap-2", timeIndicator.color)}>
+                    <Clock className="h-5 w-5" />
+                    <span className="text-sm font-medium">Время</span>
+                  </div>
+                  <p className="mt-1 text-lg font-bold">{formatTime(recipe.totalTime)}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {recipe.prepTime > 0 && `${recipe.prepTime} мин подгот.`}
+                    {recipe.prepTime > 0 && recipe.cookTime > 0 && " + "}
+                    {recipe.cookTime > 0 && `${recipe.cookTime} мин готовка`}
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Difficulty Card */}
+              <Card className={cn("border-2", diffIndicator.borderColor)}>
+                <CardContent className="p-3">
+                  <div className={cn("flex items-center gap-2", diffIndicator.color)}>
+                    <Gauge className="h-5 w-5" />
+                    <span className="text-sm font-medium">Сложность</span>
+                  </div>
+                  <p className="mt-1 text-lg font-bold">{diffIndicator.label}</p>
+                  <p className="text-xs text-muted-foreground">
+                    Уровень {recipe.difficultyLevel}/5
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Servings Card */}
+              <Card>
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Users className="h-5 w-5" />
+                    <span className="text-sm font-medium">Порции</span>
+                  </div>
+                  <p className="mt-1 text-lg font-bold">{recipe.servings}</p>
+                  <p className="text-xs text-muted-foreground">человек</p>
+                </CardContent>
+              </Card>
+
+              {/* Calories Card */}
+              {calorieIndicator && (
+                <Card className={cn("border-2", calorieIndicator.borderColor)}>
+                  <CardContent className="p-3">
+                    <div className={cn("flex items-center gap-2", calorieIndicator.color)}>
+                      <Flame className="h-5 w-5" />
+                      <span className="text-sm font-medium">Калории</span>
+                    </div>
+                    <p className="mt-1 text-lg font-bold">{recipe.caloriesPerServing} ккал</p>
+                    <p className="text-xs text-muted-foreground">на порцию</p>
+                  </CardContent>
+                </Card>
+              )}
             </div>
 
             {/* Badges */}
             <div className="mt-4 flex flex-wrap gap-2">
-              {recipe.isVegan && <Badge>Веган</Badge>}
-              {recipe.isVegetarian && !recipe.isVegan && <Badge>Вегетарианское</Badge>}
+              {recipe.isVegan && (
+                <Badge className="bg-green-600 text-white">Веган</Badge>
+              )}
+              {recipe.isVegetarian && !recipe.isVegan && (
+                <Badge className="bg-emerald-600 text-white">Вегетарианское</Badge>
+              )}
+              {recipe.isGlutenFree && (
+                <Badge className="bg-amber-600 text-white">Без глютена</Badge>
+              )}
               {cuisines.map((c) => (
-                <Badge key={c} variant="outline">{c}</Badge>
+                <Badge key={c} variant="outline">
+                  {cuisineLabels[c] || c}
+                </Badge>
               ))}
             </div>
 
             {/* Steps */}
             <Card className="mt-8">
               <CardHeader>
-                <CardTitle>Приготовление</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <ChefHat className="h-5 w-5 text-primary" />
+                  Приготовление
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <ol className="space-y-6">
@@ -117,13 +195,13 @@ export default async function RecipePage({ params }: RecipePageProps) {
                         {(step.durationMinutes || step.temperatureValue) && (
                           <div className="mt-2 flex gap-4 text-sm text-muted-foreground">
                             {step.durationMinutes && (
-                              <span className="flex items-center gap-1">
+                              <span className="flex items-center gap-1 rounded bg-muted px-2 py-0.5">
                                 <Clock className="h-4 w-4" />
                                 {step.durationMinutes} мин
                               </span>
                             )}
                             {step.temperatureValue && (
-                              <span className="flex items-center gap-1">
+                              <span className="flex items-center gap-1 rounded bg-orange-100 dark:bg-orange-900/30 px-2 py-0.5 text-orange-700 dark:text-orange-400">
                                 <Thermometer className="h-4 w-4" />
                                 {step.temperatureValue}°{step.temperatureUnit}
                               </span>
@@ -142,35 +220,37 @@ export default async function RecipePage({ params }: RecipePageProps) {
           <div>
             {/* Nutrition Card */}
             {recipe.caloriesPerServing && (
-              <Card className="mb-6">
+              <Card className="mb-6 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Flame className="h-5 w-5" />
+                    <Zap className="h-5 w-5 text-orange-500" />
                     Пищевая ценность
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">На порцию:</p>
-                  <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
-                    <div>Калории</div>
-                    <div className="font-medium">{recipe.caloriesPerServing} ккал</div>
+                  <p className="text-sm text-muted-foreground mb-3">На порцию:</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-lg bg-white dark:bg-background p-3 text-center">
+                      <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{recipe.caloriesPerServing}</p>
+                      <p className="text-xs text-muted-foreground">ккал</p>
+                    </div>
                     {recipe.proteinPerServing && (
-                      <>
-                        <div>Белки</div>
-                        <div className="font-medium">{recipe.proteinPerServing} г</div>
-                      </>
+                      <div className="rounded-lg bg-white dark:bg-background p-3 text-center">
+                        <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{recipe.proteinPerServing}</p>
+                        <p className="text-xs text-muted-foreground">г белка</p>
+                      </div>
                     )}
                     {recipe.fatPerServing && (
-                      <>
-                        <div>Жиры</div>
-                        <div className="font-medium">{recipe.fatPerServing} г</div>
-                      </>
+                      <div className="rounded-lg bg-white dark:bg-background p-3 text-center">
+                        <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{recipe.fatPerServing}</p>
+                        <p className="text-xs text-muted-foreground">г жиров</p>
+                      </div>
                     )}
                     {recipe.carbsPerServing && (
-                      <>
-                        <div>Углеводы</div>
-                        <div className="font-medium">{recipe.carbsPerServing} г</div>
-                      </>
+                      <div className="rounded-lg bg-white dark:bg-background p-3 text-center">
+                        <p className="text-2xl font-bold text-green-600 dark:text-green-400">{recipe.carbsPerServing}</p>
+                        <p className="text-xs text-muted-foreground">г углев.</p>
+                      </div>
                     )}
                   </div>
                 </CardContent>
@@ -186,13 +266,16 @@ export default async function RecipePage({ params }: RecipePageProps) {
                 {Object.entries(groupedIngredients).map(([group, ingredients]) => (
                   <div key={group} className="mb-4 last:mb-0">
                     {Object.keys(groupedIngredients).length > 1 && (
-                      <h4 className="mb-2 font-medium">{group}</h4>
+                      <h4 className="mb-2 font-medium text-primary">{group}</h4>
                     )}
                     <ul className="space-y-2">
                       {ingredients.map((ing) => (
                         <li
                           key={ing.id}
-                          className={`flex justify-between text-sm ${ing.isOptional ? "text-muted-foreground" : ""}`}
+                          className={cn(
+                            "flex justify-between text-sm py-1 border-b border-dashed last:border-0",
+                            ing.isOptional && "text-muted-foreground"
+                          )}
                         >
                           <span>
                             {ing.product.name}
@@ -200,10 +283,10 @@ export default async function RecipePage({ params }: RecipePageProps) {
                               <span className="text-muted-foreground"> ({ing.preparation})</span>
                             )}
                             {ing.isOptional && (
-                              <span className="text-muted-foreground"> (опц.)</span>
+                              <Badge variant="outline" className="ml-2 text-xs">опц.</Badge>
                             )}
                           </span>
-                          <span className="ml-2 shrink-0">
+                          <span className="ml-2 shrink-0 font-medium">
                             {ing.amount} {ing.unit}
                           </span>
                         </li>
