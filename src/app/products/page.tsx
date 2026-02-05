@@ -143,12 +143,12 @@ export default function ProductsPage() {
     <div className="min-h-screen">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Продукты</h1>
-          <Button asChild>
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <h1 className="text-xl sm:text-3xl font-bold">Продукты</h1>
+          <Button asChild size="sm" className="sm:size-default">
             <Link href="/products/new">
-              <Plus className="mr-2 h-4 w-4" />
-              Добавить продукт
+              <Plus className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Добавить продукт</span>
             </Link>
           </Button>
         </div>
@@ -201,7 +201,48 @@ export default function ProductsPage() {
           </div>
         ) : (
           <>
-            <div className="rounded-md border">
+            {/* Mobile: Card view */}
+            <div className="space-y-3 sm:hidden">
+              {products.map((product) => (
+                <div key={product.id} className="rounded-lg border p-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{product.name}</p>
+                      <div className="flex flex-wrap items-center gap-2 mt-1">
+                        <Badge variant="outline" className="text-xs">
+                          {categories.find((c) => c.value === product.category)?.label ||
+                            product.category}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground">{product.defaultUnit}</span>
+                      </div>
+                      {product.nutrition && (
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {product.nutrition.calories} ккал | Б{product.nutrition.protein} Ж{product.nutrition.fat} У{product.nutrition.carbohydrates}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex gap-1 shrink-0">
+                      <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+                        <Link href={`/products/${product.id}/edit`}>
+                          <Pencil className="h-4 w-4" />
+                        </Link>
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={() => handleDelete(product.id, product.name)}
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop: Table view */}
+            <div className="hidden sm:block rounded-md border">
               <Table>
                 <TableHeader>
                   <TableRow>

@@ -406,12 +406,12 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <Tabs defaultValue="basic" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="basic">Основное</TabsTrigger>
-          <TabsTrigger value="classification">Классификация</TabsTrigger>
-          <TabsTrigger value="ingredients">Ингредиенты</TabsTrigger>
-          <TabsTrigger value="steps">Приготовление</TabsTrigger>
-          <TabsTrigger value="nutrition">Питание</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 gap-1 h-auto p-1 sm:grid-cols-5">
+          <TabsTrigger value="basic" className="text-xs px-2 py-1.5 sm:text-sm sm:px-3">Основное</TabsTrigger>
+          <TabsTrigger value="classification" className="text-xs px-2 py-1.5 sm:text-sm sm:px-3">Тип</TabsTrigger>
+          <TabsTrigger value="ingredients" className="text-xs px-2 py-1.5 sm:text-sm sm:px-3">Ингредиенты</TabsTrigger>
+          <TabsTrigger value="steps" className="text-xs px-2 py-1.5 sm:text-sm sm:px-3">Шаги</TabsTrigger>
+          <TabsTrigger value="nutrition" className="text-xs px-2 py-1.5 sm:text-sm sm:px-3">Питание</TabsTrigger>
         </TabsList>
 
         {/* Basic Tab */}
@@ -661,64 +661,65 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
               ) : (
                 <>
               {formData.ingredients.map((ingredient, index) => (
-                <div key={index} className="flex items-start gap-2 rounded-lg border p-3">
-                  <GripVertical className="mt-2 h-5 w-5 text-muted-foreground" />
-                  <div className="flex-1 grid gap-2 sm:grid-cols-5">
-                    <div className="sm:col-span-2">
-                      <ProductCombobox
-                        products={products}
-                        value={ingredient.productId}
-                        onChange={(value) => updateIngredient(index, { productId: value })}
-                        placeholder="Выберите продукт"
-                      />
-                    </div>
-                    <div>
-                      <Input
-                        type="number"
-                        min="0"
-                        step="0.1"
-                        placeholder="Кол-во"
-                        value={ingredient.amount || ""}
-                        onChange={(e) =>
-                          updateIngredient(index, { amount: parseFloat(e.target.value) || 0 })
-                        }
-                      />
-                    </div>
-                    <div>
-                      <Select
-                        value={ingredient.unit}
-                        onValueChange={(value) => updateIngredient(index, { unit: value })}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="g">г</SelectItem>
-                          <SelectItem value="ml">мл</SelectItem>
-                          <SelectItem value="pcs">шт</SelectItem>
-                          <SelectItem value="tbsp">ст.л.</SelectItem>
-                          <SelectItem value="tsp">ч.л.</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <label className="flex items-center gap-1 text-sm">
-                        <Checkbox
-                          checked={ingredient.isOptional}
-                          onCheckedChange={(checked) =>
-                            updateIngredient(index, { isOptional: checked as boolean })
+                <div key={index} className="rounded-lg border p-3">
+                  <div className="flex items-start gap-2">
+                    <GripVertical className="mt-2 h-5 w-5 shrink-0 text-muted-foreground hidden sm:block" />
+                    <div className="flex-1 space-y-2 sm:space-y-0 sm:grid sm:gap-2 sm:grid-cols-5">
+                      <div className="sm:col-span-2">
+                        <ProductCombobox
+                          products={products}
+                          value={ingredient.productId}
+                          onChange={(value) => updateIngredient(index, { productId: value })}
+                          placeholder="Выберите продукт"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 sm:contents">
+                        <Input
+                          type="number"
+                          min="0"
+                          step="0.1"
+                          placeholder="Кол-во"
+                          value={ingredient.amount || ""}
+                          onChange={(e) =>
+                            updateIngredient(index, { amount: parseFloat(e.target.value) || 0 })
                           }
                         />
-                        <span>Опц.</span>
-                      </label>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removeIngredient(index)}
-                      >
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                      </Button>
+                        <Select
+                          value={ingredient.unit}
+                          onValueChange={(value) => updateIngredient(index, { unit: value })}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="g">г</SelectItem>
+                            <SelectItem value="ml">мл</SelectItem>
+                            <SelectItem value="pcs">шт</SelectItem>
+                            <SelectItem value="tbsp">ст.л.</SelectItem>
+                            <SelectItem value="tsp">ч.л.</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex items-center justify-between sm:justify-start gap-2">
+                        <label className="flex items-center gap-1 text-sm">
+                          <Checkbox
+                            checked={ingredient.isOptional}
+                            onCheckedChange={(checked) =>
+                              updateIngredient(index, { isOptional: checked as boolean })
+                            }
+                          />
+                          <span>Опциональный</span>
+                        </label>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="shrink-0"
+                          onClick={() => removeIngredient(index)}
+                        >
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -743,58 +744,61 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
             </CardHeader>
             <CardContent className="space-y-4">
               {formData.steps.map((step, index) => (
-                <div key={index} className="flex items-start gap-3 rounded-lg border p-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-medium">
-                    {step.stepNumber}
-                  </div>
-                  <div className="flex-1 space-y-2">
-                    <Input
-                      placeholder="Описание шага..."
-                      value={step.instruction}
-                      onChange={(e) => updateStep(index, { instruction: e.target.value })}
-                    />
-                    <div className="flex gap-2">
-                      <Input
-                        type="number"
-                        min="0"
-                        placeholder="Время (мин)"
-                        className="w-32"
-                        value={step.durationMinutes || ""}
-                        onChange={(e) =>
-                          updateStep(index, { durationMinutes: parseInt(e.target.value) || undefined })
-                        }
-                      />
-                      <Input
-                        type="number"
-                        placeholder="Темп."
-                        className="w-24"
-                        value={step.temperatureValue || ""}
-                        onChange={(e) =>
-                          updateStep(index, { temperatureValue: parseInt(e.target.value) || undefined })
-                        }
-                      />
-                      <Select
-                        value={step.temperatureUnit || "C"}
-                        onValueChange={(value) => updateStep(index, { temperatureUnit: value as "C" | "F" })}
-                      >
-                        <SelectTrigger className="w-20">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="C">°C</SelectItem>
-                          <SelectItem value="F">°F</SelectItem>
-                        </SelectContent>
-                      </Select>
+                <div key={index} className="rounded-lg border p-3">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-medium">
+                      {step.stepNumber}
                     </div>
+                    <div className="flex-1 space-y-2">
+                      <Input
+                        placeholder="Описание шага..."
+                        value={step.instruction}
+                        onChange={(e) => updateStep(index, { instruction: e.target.value })}
+                      />
+                      <div className="grid grid-cols-3 gap-2 sm:flex sm:gap-2">
+                        <Input
+                          type="number"
+                          min="0"
+                          placeholder="Мин"
+                          className="sm:w-28"
+                          value={step.durationMinutes || ""}
+                          onChange={(e) =>
+                            updateStep(index, { durationMinutes: parseInt(e.target.value) || undefined })
+                          }
+                        />
+                        <Input
+                          type="number"
+                          placeholder="°"
+                          className="sm:w-20"
+                          value={step.temperatureValue || ""}
+                          onChange={(e) =>
+                            updateStep(index, { temperatureValue: parseInt(e.target.value) || undefined })
+                          }
+                        />
+                        <Select
+                          value={step.temperatureUnit || "C"}
+                          onValueChange={(value) => updateStep(index, { temperatureUnit: value as "C" | "F" })}
+                        >
+                          <SelectTrigger className="sm:w-20">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="C">°C</SelectItem>
+                            <SelectItem value="F">°F</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="shrink-0"
+                      onClick={() => removeStep(index)}
+                    >
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
                   </div>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removeStep(index)}
-                  >
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </Button>
                 </div>
               ))}
 
@@ -810,9 +814,9 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
         <TabsContent value="nutrition">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex flex-wrap items-center gap-2 text-base sm:text-lg">
                     Пищевая ценность
                     {isAutoCalculated && (
                       <Badge variant="secondary" className="font-normal">
@@ -821,12 +825,13 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
                       </Badge>
                     )}
                   </CardTitle>
-                  <CardDescription>На одну порцию (опционально)</CardDescription>
+                  <CardDescription className="text-xs sm:text-sm">На одну порцию (опционально)</CardDescription>
                 </div>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
+                  className="w-full sm:w-auto"
                   onClick={applyAutoCalculation}
                   disabled={formData.ingredients.length === 0 || isLoadingProducts}
                 >

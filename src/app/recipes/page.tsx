@@ -288,17 +288,17 @@ function RecipesContent() {
     <div className="min-h-screen">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold">Рецепты</h1>
-            <p className="mt-1 text-muted-foreground">
+            <h1 className="text-2xl sm:text-3xl font-bold">Рецепты</h1>
+            <p className="mt-1 text-sm text-muted-foreground">
               {isLoading ? "Загрузка..." : `${total} рецептов`}
             </p>
           </div>
-          <Button asChild>
+          <Button asChild size="sm" className="sm:size-default">
             <Link href="/recipes/new">
-              <Plus className="mr-2 h-4 w-4" />
-              Добавить рецепт
+              <Plus className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Добавить рецепт</span>
             </Link>
           </Button>
         </div>

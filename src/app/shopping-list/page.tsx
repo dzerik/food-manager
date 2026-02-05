@@ -407,54 +407,132 @@ export default function ShoppingListPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold">Список покупок</h1>
+      <main className="mx-auto max-w-7xl px-4 py-4 sm:py-8 sm:px-6 lg:px-8">
+        <div className="mb-6 sm:mb-8 space-y-4">
+          {/* Header row */}
+          <div className="flex items-center justify-between gap-2">
+            <h1 className="text-2xl sm:text-3xl font-bold">Список покупок</h1>
 
-            {/* Plan selector */}
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <span className="text-sm text-muted-foreground">Планы:</span>
-              <DropdownMenu open={isPlansDropdownOpen} onOpenChange={setIsPlansDropdownOpen}>
+            {/* Actions - desktop */}
+            <div className="hidden sm:flex items-center gap-2">
+              <Button variant="outline" size="sm" onClick={copyToClipboard} disabled={!shoppingData}>
+                {copiedToClipboard ? (
+                  <Check className="mr-2 h-4 w-4" />
+                ) : (
+                  <Copy className="mr-2 h-4 w-4" />
+                )}
+                {copiedToClipboard ? "Скопировано" : "Копировать"}
+              </Button>
+
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-8">
-                    Выбрать планы
-                    <ChevronDown className="ml-2 h-4 w-4" />
+                  <Button variant="outline" size="sm" disabled={!shoppingData}>
+                    <Download className="mr-2 h-4 w-4" />
+                    Экспорт
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-80">
-                  {allPlans.map((plan) => (
-                    <DropdownMenuItem
-                      key={plan.id}
-                      className="flex items-center gap-2"
-                      onSelect={(e) => {
-                        e.preventDefault();
-                        togglePlanSelection(plan.id);
-                      }}
-                    >
-                      <Checkbox
-                        checked={selectedPlanIds.has(plan.id)}
-                        className="pointer-events-none"
-                      />
-                      <div className="flex-1 truncate">
-                        <div className="font-medium">{plan.name || "План питания"}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {format(new Date(plan.startDate), "d MMM", { locale: ru })} -{" "}
-                          {format(new Date(plan.endDate), "d MMM yyyy", { locale: ru })}
-                        </div>
-                      </div>
-                    </DropdownMenuItem>
-                  ))}
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => handleExport("txt")}>
+                    <FileText className="mr-2 h-4 w-4" />
+                    Текст (.txt)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleExport("csv")}>
+                    <FileText className="mr-2 h-4 w-4" />
+                    CSV (.csv)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleExport("json")}>
+                    <FileJson className="mr-2 h-4 w-4" />
+                    JSON (.json)
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Selected plans badges */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => toggleAll(remainingCount > 0)}
+                disabled={!shoppingData}
+              >
+                {remainingCount > 0 ? "Отметить все" : "Сбросить"}
+              </Button>
+            </div>
+
+            {/* Actions - mobile */}
+            <div className="flex sm:hidden items-center gap-1">
+              <Button variant="outline" size="icon" onClick={copyToClipboard} disabled={!shoppingData}>
+                {copiedToClipboard ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              </Button>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon" disabled={!shoppingData}>
+                    <Download className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => handleExport("txt")}>
+                    <FileText className="mr-2 h-4 w-4" />
+                    Текст
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleExport("csv")}>
+                    <FileText className="mr-2 h-4 w-4" />
+                    CSV
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleExport("json")}>
+                    <FileJson className="mr-2 h-4 w-4" />
+                    JSON
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+
+          {/* Plan selector */}
+          <div className="flex flex-wrap items-center gap-2">
+            <DropdownMenu open={isPlansDropdownOpen} onOpenChange={setIsPlansDropdownOpen}>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-8">
+                  <Calendar className="mr-2 h-4 w-4 sm:hidden" />
+                  <span className="hidden sm:inline">Выбрать планы</span>
+                  <span className="sm:hidden">Планы</span>
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-[calc(100vw-2rem)] sm:w-80 max-w-80">
+                {allPlans.map((plan) => (
+                  <DropdownMenuItem
+                    key={plan.id}
+                    className="flex items-center gap-2"
+                    onSelect={(e) => {
+                      e.preventDefault();
+                      togglePlanSelection(plan.id);
+                    }}
+                  >
+                    <Checkbox
+                      checked={selectedPlanIds.has(plan.id)}
+                      className="pointer-events-none"
+                    />
+                    <div className="flex-1 truncate">
+                      <div className="font-medium truncate">{plan.name || "План питания"}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {format(new Date(plan.startDate), "d MMM", { locale: ru })} -{" "}
+                        {format(new Date(plan.endDate), "d MMM yyyy", { locale: ru })}
+                      </div>
+                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Selected plans badges - scrollable on mobile */}
+            <div className="flex flex-wrap gap-1 sm:gap-2">
               {Array.from(selectedPlanIds).map((planId) => {
                 const plan = allPlans.find((p) => p.id === planId);
                 if (!plan) return null;
                 return (
-                  <Badge key={planId} variant="secondary" className="gap-1">
-                    {getPlanLabel(plan, true)}
+                  <Badge key={planId} variant="secondary" className="gap-1 text-xs sm:text-sm">
+                    <span className="hidden sm:inline">{getPlanLabel(plan, true)}</span>
+                    <span className="sm:hidden">{getPlanLabel(plan, false)}</span>
                     <button
                       onClick={() => togglePlanSelection(planId)}
                       className="ml-1 hover:text-destructive"
@@ -466,57 +544,25 @@ export default function ShoppingListPage() {
               })}
             </div>
 
-            {shoppingData && (
-              <p className="mt-2 text-sm text-muted-foreground">
-                {remainingCount > 0
-                  ? `Осталось купить: ${remainingCount} из ${totalItems}`
-                  : "Все продукты куплены!"}
-              </p>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={copyToClipboard} disabled={!shoppingData}>
-              {copiedToClipboard ? (
-                <Check className="mr-2 h-4 w-4" />
-              ) : (
-                <Copy className="mr-2 h-4 w-4" />
-              )}
-              {copiedToClipboard ? "Скопировано" : "Копировать"}
-            </Button>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" disabled={!shoppingData}>
-                  <Download className="mr-2 h-4 w-4" />
-                  Экспорт
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleExport("txt")}>
-                  <FileText className="mr-2 h-4 w-4" />
-                  Текст (.txt)
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleExport("csv")}>
-                  <FileText className="mr-2 h-4 w-4" />
-                  CSV (.csv)
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleExport("json")}>
-                  <FileJson className="mr-2 h-4 w-4" />
-                  JSON (.json)
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
+            {/* Toggle all - mobile */}
             <Button
               variant="ghost"
               size="sm"
               onClick={() => toggleAll(remainingCount > 0)}
               disabled={!shoppingData}
+              className="sm:hidden ml-auto"
             >
-              {remainingCount > 0 ? "Отметить все" : "Сбросить"}
+              {remainingCount > 0 ? "Все" : "Сброс"}
             </Button>
           </div>
+
+          {shoppingData && (
+            <p className="text-sm text-muted-foreground">
+              {remainingCount > 0
+                ? `Осталось купить: ${remainingCount} из ${totalItems}`
+                : "Все продукты куплены!"}
+            </p>
+          )}
         </div>
 
         {selectedPlanIds.size === 0 ? (

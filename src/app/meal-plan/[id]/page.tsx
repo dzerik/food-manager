@@ -376,100 +376,123 @@ export default function MealPlanDetailPage({
     <div className="min-h-screen">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/meal-plan">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-            <div>
-              {isEditingName ? (
-                <div className="flex items-center gap-2">
-                  <Input
-                    value={editName}
-                    onChange={(e) => setEditName(e.target.value)}
-                    onKeyDown={handleNameKeyDown}
-                    onBlur={() => setIsEditingName(false)}
-                    placeholder="Название плана"
-                    className="text-2xl font-bold h-auto py-0 border-0 border-b-2 rounded-none focus-visible:ring-0 focus-visible:border-primary"
-                    autoFocus
-                  />
-                  <Button size="sm" variant="ghost" onClick={handleUpdateName}>
-                    <Check className="h-4 w-4" />
-                  </Button>
-                </div>
-              ) : (
-                <h1
-                  className="text-2xl font-bold cursor-pointer hover:text-primary transition-colors flex items-center gap-2"
-                  onClick={startEditingName}
-                  title="Нажмите для редактирования"
-                >
-                  {mealPlan.name || "План питания"}
-                  <Pencil className="h-4 w-4 opacity-0 group-hover:opacity-100 text-muted-foreground" />
-                </h1>
-              )}
-              <Popover open={isEditingPeriod} onOpenChange={setIsEditingPeriod}>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="h-auto p-0 text-sm text-muted-foreground hover:text-foreground"
-                    onClick={openEditPeriod}
+        <div className="mb-6 space-y-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+              <Button variant="ghost" size="icon" asChild className="shrink-0">
+                <Link href="/meal-plan">
+                  <ArrowLeft className="h-5 w-5" />
+                </Link>
+              </Button>
+              <div className="min-w-0">
+                {isEditingName ? (
+                  <div className="flex items-center gap-2">
+                    <Input
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      onKeyDown={handleNameKeyDown}
+                      onBlur={() => setIsEditingName(false)}
+                      placeholder="Название плана"
+                      className="text-lg sm:text-2xl font-bold h-auto py-0 border-0 border-b-2 rounded-none focus-visible:ring-0 focus-visible:border-primary"
+                      autoFocus
+                    />
+                    <Button size="sm" variant="ghost" onClick={handleUpdateName}>
+                      <Check className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <h1
+                    className="text-lg sm:text-2xl font-bold cursor-pointer hover:text-primary transition-colors flex items-center gap-2 truncate"
+                    onClick={startEditingName}
+                    title="Нажмите для редактирования"
                   >
-                    <CalendarIcon className="mr-1 h-3 w-3" />
-                    {format(new Date(mealPlan.startDate), "d MMMM", { locale: ru })} -{" "}
-                    {format(new Date(mealPlan.endDate), "d MMMM yyyy", { locale: ru })}
-                    <span className="ml-2 text-xs">
-                      ({differenceInDays(new Date(mealPlan.endDate), new Date(mealPlan.startDate)) + 1} дн.)
-                    </span>
-                    <Pencil className="ml-1 h-3 w-3" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <div className="p-3 border-b">
-                    <div className="font-medium text-sm">Изменить период</div>
-                    <p className="text-xs text-muted-foreground">
-                      Выберите новый диапазон дат
-                    </p>
-                  </div>
-                  <Calendar
-                    mode="range"
-                    selected={editDateRange}
-                    onSelect={(range) => setEditDateRange(range || { from: undefined, to: undefined })}
-                    numberOfMonths={2}
-                    locale={ru}
-                    weekStartsOn={1}
-                  />
-                  <div className="p-3 border-t flex justify-end gap-2">
+                    <span className="truncate">{mealPlan.name || "План питания"}</span>
+                    <Pencil className="h-4 w-4 shrink-0 opacity-50" />
+                  </h1>
+                )}
+                <Popover open={isEditingPeriod} onOpenChange={setIsEditingPeriod}>
+                  <PopoverTrigger asChild>
                     <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setIsEditingPeriod(false)}
+                      variant="ghost"
+                      className="h-auto p-0 text-xs sm:text-sm text-muted-foreground hover:text-foreground"
+                      onClick={openEditPeriod}
                     >
-                      Отмена
+                      <CalendarIcon className="mr-1 h-3 w-3" />
+                      <span className="hidden xs:inline">
+                        {format(new Date(mealPlan.startDate), "d MMMM", { locale: ru })} -{" "}
+                        {format(new Date(mealPlan.endDate), "d MMMM yyyy", { locale: ru })}
+                      </span>
+                      <span className="xs:hidden">
+                        {format(new Date(mealPlan.startDate), "d.MM", { locale: ru })} -{" "}
+                        {format(new Date(mealPlan.endDate), "d.MM.yy", { locale: ru })}
+                      </span>
+                      <span className="ml-1 sm:ml-2 text-xs">
+                        ({differenceInDays(new Date(mealPlan.endDate), new Date(mealPlan.startDate)) + 1} дн.)
+                      </span>
+                      <Pencil className="ml-1 h-3 w-3" />
                     </Button>
-                    <Button
-                      size="sm"
-                      onClick={handleUpdatePeriod}
-                      disabled={!editDateRange.from || !editDateRange.to || isUpdatingPeriod}
-                    >
-                      {isUpdatingPeriod ? "Сохранение..." : "Сохранить"}
-                    </Button>
-                  </div>
-                </PopoverContent>
-              </Popover>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <div className="p-3 border-b">
+                      <div className="font-medium text-sm">Изменить период</div>
+                      <p className="text-xs text-muted-foreground">
+                        Выберите новый диапазон дат
+                      </p>
+                    </div>
+                    <Calendar
+                      mode="range"
+                      selected={editDateRange}
+                      onSelect={(range) => setEditDateRange(range || { from: undefined, to: undefined })}
+                      numberOfMonths={1}
+                      locale={ru}
+                      weekStartsOn={1}
+                      className="sm:hidden"
+                    />
+                    <Calendar
+                      mode="range"
+                      selected={editDateRange}
+                      onSelect={(range) => setEditDateRange(range || { from: undefined, to: undefined })}
+                      numberOfMonths={2}
+                      locale={ru}
+                      weekStartsOn={1}
+                      className="hidden sm:block"
+                    />
+                    <div className="p-3 border-t flex justify-end gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setIsEditingPeriod(false)}
+                      >
+                        Отмена
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={handleUpdatePeriod}
+                        disabled={!editDateRange.from || !editDateRange.to || isUpdatingPeriod}
+                      >
+                        {isUpdatingPeriod ? "Сохранение..." : "Сохранить"}
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" asChild>
-              <Link href="/shopping-list">
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                Список покупок
-              </Link>
-            </Button>
-            <Button variant="destructive" size="icon" onClick={handleDeletePlan}>
-              <Trash2 className="h-4 w-4" />
-            </Button>
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+              <Button variant="outline" size="icon" asChild className="sm:hidden">
+                <Link href="/shopping-list">
+                  <ShoppingCart className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" asChild className="hidden sm:flex">
+                <Link href="/shopping-list">
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Список покупок
+                </Link>
+              </Button>
+              <Button variant="destructive" size="icon" onClick={handleDeletePlan}>
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
 

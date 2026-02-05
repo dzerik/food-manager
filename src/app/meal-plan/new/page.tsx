@@ -171,6 +171,23 @@ export default function NewMealPlanPage() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
+                    {/* Mobile: 1 month */}
+                    <Calendar
+                      mode="range"
+                      selected={dateRange}
+                      onSelect={(range) => {
+                        setDateRange(range || { from: undefined, to: undefined });
+                        if (range?.from && range?.to) {
+                          setIsCalendarOpen(false);
+                        }
+                      }}
+                      numberOfMonths={1}
+                      locale={ru}
+                      weekStartsOn={1}
+                      disabled={{ before: new Date(2020, 0, 1) }}
+                      className="sm:hidden"
+                    />
+                    {/* Desktop: 2 months */}
                     <Calendar
                       mode="range"
                       selected={dateRange}
@@ -184,6 +201,7 @@ export default function NewMealPlanPage() {
                       locale={ru}
                       weekStartsOn={1}
                       disabled={{ before: new Date(2020, 0, 1) }}
+                      className="hidden sm:block"
                     />
                   </PopoverContent>
                 </Popover>

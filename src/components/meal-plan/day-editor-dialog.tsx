@@ -236,29 +236,29 @@ export function DayEditorDialog({
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[600px]">
+      <DialogContent className="max-h-[90vh] overflow-y-auto p-4 sm:p-6 sm:max-w-[600px]">
         <DialogHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <DialogTitle>{format(date, "EEEE, d MMMM", { locale: ru })}</DialogTitle>
-              <DialogDescription>Редактирование плана на день</DialogDescription>
+              <DialogTitle className="text-base sm:text-lg">{format(date, "EEEE, d MMMM", { locale: ru })}</DialogTitle>
+              <DialogDescription className="text-xs sm:text-sm">Редактирование плана на день</DialogDescription>
             </div>
             <Dialog open={isCopyDialogOpen} onOpenChange={setIsCopyDialogOpen}>
               <DialogTrigger asChild>
-                <Button variant="outline" size="sm" disabled={dayRecipes.length === 0}>
+                <Button variant="outline" size="sm" disabled={dayRecipes.length === 0} className="w-full sm:w-auto">
                   <Copy className="mr-2 h-4 w-4" />
                   Копировать
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="max-h-[85vh] overflow-y-auto p-4 sm:p-6">
                 <DialogHeader>
-                  <DialogTitle>Копировать в другие дни</DialogTitle>
-                  <DialogDescription>
+                  <DialogTitle className="text-base sm:text-lg">Копировать в другие дни</DialogTitle>
+                  <DialogDescription className="text-xs sm:text-sm">
                     Выберите дни для копирования плана
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 pt-4">
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
                     {availableDays.map((day) => {
                       const isSelected = copyTargetDates.some((d) => isSameDay(d, day));
                       return (
@@ -266,6 +266,7 @@ export function DayEditorDialog({
                           key={day.toISOString()}
                           variant={isSelected ? "default" : "outline"}
                           size="sm"
+                          className="text-xs sm:text-sm"
                           onClick={() => {
                             setCopyTargetDates((prev) =>
                               isSelected
@@ -285,7 +286,7 @@ export function DayEditorDialog({
                       checked={replaceExisting}
                       onCheckedChange={(checked) => setReplaceExisting(checked as boolean)}
                     />
-                    <Label htmlFor="replace" className="text-sm">
+                    <Label htmlFor="replace" className="text-xs sm:text-sm">
                       Заменить существующие рецепты
                     </Label>
                   </div>
@@ -325,7 +326,7 @@ export function DayEditorDialog({
                     {meals.map((meal) => (
                       <div
                         key={meal.id}
-                        className="flex items-center justify-between gap-2 rounded bg-muted/50 p-2"
+                        className="flex flex-col gap-2 rounded bg-muted/50 p-2 sm:flex-row sm:items-center sm:justify-between"
                       >
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-medium">{meal.recipe.name}</p>
@@ -333,20 +334,22 @@ export function DayEditorDialog({
                             {(meal.recipe.caloriesPerServing || 0) * meal.servings} ккал
                           </p>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Input
-                            type="number"
-                            min={1}
-                            value={meal.servings}
-                            onChange={(e) => handleUpdateServings(meal.id, parseInt(e.target.value) || 1)}
-                            className="h-8 w-16 text-center"
-                            disabled={updatingRecipeId === meal.id}
-                          />
-                          <span className="text-xs text-muted-foreground">порц.</span>
+                        <div className="flex items-center justify-between gap-2 sm:justify-end">
+                          <div className="flex items-center gap-1">
+                            <Input
+                              type="number"
+                              min={1}
+                              value={meal.servings}
+                              onChange={(e) => handleUpdateServings(meal.id, parseInt(e.target.value) || 1)}
+                              className="h-8 w-14 text-center sm:w-16"
+                              disabled={updatingRecipeId === meal.id}
+                            />
+                            <span className="text-xs text-muted-foreground">порц.</span>
+                          </div>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8"
+                            className="h-8 w-8 shrink-0"
                             onClick={() => handleDeleteRecipe(meal.id)}
                             disabled={deletingRecipeId === meal.id}
                           >
@@ -361,7 +364,7 @@ export function DayEditorDialog({
                 )}
 
                 {/* Quick add for this meal type */}
-                <div className="mt-2 flex gap-2">
+                <div className="mt-2 space-y-2">
                   <Select
                     value={selectedMealType === mealType ? selectedRecipeId : ""}
                     onValueChange={(value) => {
@@ -369,7 +372,7 @@ export function DayEditorDialog({
                       setSelectedRecipeId(value);
                     }}
                   >
-                    <SelectTrigger className="h-8 flex-1 text-sm">
+                    <SelectTrigger className="h-9 w-full text-sm">
                       <SelectValue placeholder="+ Добавить рецепт" />
                     </SelectTrigger>
                     <SelectContent>
@@ -386,14 +389,14 @@ export function DayEditorDialog({
                           return (
                             <SelectItem key={recipe.id} value={recipe.id}>
                               <span className="flex items-center gap-2">
-                                {recipe.name}
+                                <span className="truncate">{recipe.name}</span>
                                 {recipe.caloriesPerServing && (
-                                  <span className="text-muted-foreground">
+                                  <span className="shrink-0 text-muted-foreground">
                                     ({recipe.caloriesPerServing} ккал)
                                   </span>
                                 )}
                                 {hasAllergen && (
-                                  <AlertTriangle className="h-4 w-4 text-yellow-500" />
+                                  <AlertTriangle className="h-4 w-4 shrink-0 text-yellow-500" />
                                 )}
                               </span>
                             </SelectItem>
@@ -402,23 +405,26 @@ export function DayEditorDialog({
                     </SelectContent>
                   </Select>
                   {selectedMealType === mealType && selectedRecipeId && (
-                    <>
+                    <div className="flex items-center gap-2">
                       <Input
                         type="number"
                         min={1}
                         value={servings}
                         onChange={(e) => setServings(parseInt(e.target.value) || 1)}
-                        className="h-8 w-16"
+                        className="h-9 w-20"
+                        placeholder="Порции"
                       />
+                      <span className="text-xs text-muted-foreground shrink-0">порций</span>
                       <Button
                         size="sm"
-                        className="h-8"
+                        className="h-9 flex-1"
                         onClick={handleAddRecipe}
                         disabled={isAddingRecipe}
                       >
-                        <Plus className="h-4 w-4" />
+                        <Plus className="mr-1 h-4 w-4" />
+                        Добавить
                       </Button>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>
@@ -441,25 +447,25 @@ export function DayEditorDialog({
 
           {/* Total summary */}
           <div className="rounded-lg bg-muted/50 p-3">
-            <div className="grid grid-cols-4 gap-2 text-center">
+            <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-4 sm:gap-2">
               <div>
-                <p className="text-lg font-bold">{totalDayCalories}</p>
+                <p className="text-lg font-bold sm:text-xl">{totalDayCalories}</p>
                 <p className="text-xs text-muted-foreground">ккал</p>
               </div>
               <div>
-                <p className="text-lg font-bold">
+                <p className="text-lg font-bold sm:text-xl">
                   {dayRecipes.reduce((sum, r) => sum + (r.recipe.proteinPerServing || 0) * r.servings, 0).toFixed(0)}
                 </p>
                 <p className="text-xs text-muted-foreground">белки (г)</p>
               </div>
               <div>
-                <p className="text-lg font-bold">
+                <p className="text-lg font-bold sm:text-xl">
                   {dayRecipes.reduce((sum, r) => sum + (r.recipe.fatPerServing || 0) * r.servings, 0).toFixed(0)}
                 </p>
                 <p className="text-xs text-muted-foreground">жиры (г)</p>
               </div>
               <div>
-                <p className="text-lg font-bold">
+                <p className="text-lg font-bold sm:text-xl">
                   {dayRecipes.reduce((sum, r) => sum + (r.recipe.carbsPerServing || 0) * r.servings, 0).toFixed(0)}
                 </p>
                 <p className="text-xs text-muted-foreground">углеводы (г)</p>

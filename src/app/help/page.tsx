@@ -364,9 +364,9 @@ export default function HelpPage() {
     <div className="min-h-screen">
       <Header />
       <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Справка</h1>
-          <p className="mt-2 text-muted-foreground">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-xl sm:text-3xl font-bold">Справка</h1>
+          <p className="mt-1 sm:mt-2 text-sm sm:text-base text-muted-foreground">
             Руководство пользователя Food Manager
           </p>
         </div>
