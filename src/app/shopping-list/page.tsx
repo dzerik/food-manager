@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ProductEditDialog } from "@/components/products/product-edit-dialog";
+import { DeliveryServices } from "@/components/shopping/delivery-services";
 import {
   ShoppingCart,
   Calendar,
@@ -113,6 +114,37 @@ function getPlanLabel(plan: MealPlanSummary, includeDates = false): string {
     return `${name} (${dates})`;
   }
   return name;
+}
+
+function generateShoppingListText(
+  shoppingData: ShoppingListData,
+  checkedItems: Set<string>
+): string {
+  const uncheckedItems = shoppingData.items.filter(
+    (i) => !checkedItems.has(i.productId) && !i.isExcluded
+  );
+
+  const grouped = uncheckedItems.reduce((acc, item) => {
+    const cat = categoryLabels[item.category] || item.category;
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(item);
+    return acc;
+  }, {} as Record<string, ShoppingItem[]>);
+
+  const lines: string[] = [];
+  lines.push("Список покупок:");
+  lines.push("");
+
+  for (const [category, items] of Object.entries(grouped)) {
+    lines.push(`${category}:`);
+    for (const item of items) {
+      const amount = formatAmount(item.roundedGrams, item.unit, item.gramsPerPiece);
+      lines.push(`- ${item.productName}: ${amount}`);
+    }
+    lines.push("");
+  }
+
+  return lines.join("\n");
 }
 
 export default function ShoppingListPage() {
@@ -666,6 +698,12 @@ export default function ShoppingListPage() {
                 {shoppingData.excludedItems} продуктов исключено из-за аллергий
               </p>
             )}
+
+            {/* Delivery services */}
+            <DeliveryServices
+              shoppingListText={generateShoppingListText(shoppingData, checkedItems)}
+              itemsCount={remainingCount}
+            />
           </>
         ) : (
           <div className="flex justify-center py-12">
