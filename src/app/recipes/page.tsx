@@ -190,12 +190,12 @@ function RecipesContent() {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label>Приём пищи</Label>
-        <Select value={mealType} onValueChange={setMealType}>
+        <Select value={mealType || "all"} onValueChange={(v) => setMealType(v === "all" ? "" : v)}>
           <SelectTrigger>
             <SelectValue placeholder="Все" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Все</SelectItem>
+            <SelectItem value="all">Все</SelectItem>
             {mealTypeOptions.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
@@ -207,12 +207,12 @@ function RecipesContent() {
 
       <div className="space-y-2">
         <Label>Кухня</Label>
-        <Select value={cuisine} onValueChange={setCuisine}>
+        <Select value={cuisine || "all"} onValueChange={(v) => setCuisine(v === "all" ? "" : v)}>
           <SelectTrigger>
             <SelectValue placeholder="Все" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Все</SelectItem>
+            <SelectItem value="all">Все</SelectItem>
             {cuisineOptions.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
@@ -224,12 +224,12 @@ function RecipesContent() {
 
       <div className="space-y-2">
         <Label>Сложность</Label>
-        <Select value={difficulty} onValueChange={setDifficulty}>
+        <Select value={difficulty || "all"} onValueChange={(v) => setDifficulty(v === "all" ? "" : v)}>
           <SelectTrigger>
             <SelectValue placeholder="Любая" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Любая</SelectItem>
+            <SelectItem value="all">Любая</SelectItem>
             {difficultyOptions.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
@@ -241,12 +241,12 @@ function RecipesContent() {
 
       <div className="space-y-2">
         <Label>Время приготовления</Label>
-        <Select value={maxTime} onValueChange={setMaxTime}>
+        <Select value={maxTime || "all"} onValueChange={(v) => setMaxTime(v === "all" ? "" : v)}>
           <SelectTrigger>
             <SelectValue placeholder="Любое" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Любое</SelectItem>
+            <SelectItem value="all">Любое</SelectItem>
             {timeOptions.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
@@ -317,12 +317,12 @@ function RecipesContent() {
 
           {/* Desktop Filters */}
           <div className="hidden gap-2 lg:flex">
-            <Select value={mealType} onValueChange={setMealType}>
+            <Select value={mealType || "all"} onValueChange={(v) => setMealType(v === "all" ? "" : v)}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Приём пищи" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Все</SelectItem>
+                <SelectItem value="all">Все</SelectItem>
                 {mealTypeOptions.map((opt) => (
                   <SelectItem key={opt.value} value={opt.value}>
                     {opt.label}
@@ -331,12 +331,12 @@ function RecipesContent() {
               </SelectContent>
             </Select>
 
-            <Select value={cuisine} onValueChange={setCuisine}>
+            <Select value={cuisine || "all"} onValueChange={(v) => setCuisine(v === "all" ? "" : v)}>
               <SelectTrigger className="w-[160px]">
                 <SelectValue placeholder="Кухня" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Все</SelectItem>
+                <SelectItem value="all">Все</SelectItem>
                 {cuisineOptions.map((opt) => (
                   <SelectItem key={opt.value} value={opt.value}>
                     {opt.label}
@@ -345,12 +345,12 @@ function RecipesContent() {
               </SelectContent>
             </Select>
 
-            <Select value={maxTime} onValueChange={setMaxTime}>
+            <Select value={maxTime || "all"} onValueChange={(v) => setMaxTime(v === "all" ? "" : v)}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Время" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Любое</SelectItem>
+                <SelectItem value="all">Любое</SelectItem>
                 {timeOptions.map((opt) => (
                   <SelectItem key={opt.value} value={opt.value}>
                     {opt.label}
