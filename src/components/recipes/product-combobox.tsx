@@ -30,6 +30,7 @@ interface ProductComboboxProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  selectedProductName?: string; // Fallback для режима редактирования когда продукты ещё загружаются
 }
 
 export function ProductCombobox({
@@ -37,9 +38,13 @@ export function ProductCombobox({
   value,
   onChange,
   placeholder = "Выберите продукт",
+  selectedProductName,
 }: ProductComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const selectedProduct = products.find((p) => p.id === value);
+
+  // Используем selectedProductName как fallback если продукт ещё не загружен
+  const displayName = selectedProduct?.name || selectedProductName || placeholder;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -50,7 +55,7 @@ export function ProductCombobox({
           aria-expanded={open}
           className="w-full justify-between font-normal"
         >
-          {selectedProduct?.name || placeholder}
+          {displayName}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

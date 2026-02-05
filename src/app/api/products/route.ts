@@ -6,7 +6,7 @@ const querySchema = z.object({
   category: z.string().optional(),
   search: z.string().optional(),
   page: z.coerce.number().positive().default(1),
-  limit: z.coerce.number().positive().max(100).default(50),
+  limit: z.coerce.number().positive().max(500).default(50),
 });
 
 export async function GET(request: NextRequest) {
@@ -82,6 +82,8 @@ const createProductSchema = z.object({
   defaultUnit: z.string().default("g"),
   gramsPerPiece: z.number().optional(),
   gramsPerCup: z.number().optional(),
+  packageSize: z.number().optional(),
+  isAlwaysOwned: z.boolean().optional(),
   nutrition: nutritionSchema.optional(),
   dietaryInfo: dietaryInfoSchema.optional(),
 });

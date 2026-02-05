@@ -116,6 +116,10 @@ model Product {
   defaultUnit   String @default("g")
   gramsPerPiece Float?
   gramsPerCup   Float?
+  packageSize   Float?  // Кратность (размер упаковки в граммах)
+
+  // Shopping
+  isAlwaysOwned Boolean @default(false) // Продукт всегда есть дома (специи)
 
   // Relations
   nutrition         ProductNutrition?

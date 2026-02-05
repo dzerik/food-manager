@@ -22,15 +22,24 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Trash2, GripVertical } from "lucide-react";
+import { Plus, Trash2, GripVertical, Calculator } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { ProductCombobox } from "./product-combobox";
+
+interface ProductNutrition {
+  calories: number;
+  protein: number;
+  fat: number;
+  carbohydrates: number;
+}
 
 interface Product {
   id: string;
   name: string;
   defaultUnit: string;
   gramsPerPiece?: number;
+  nutrition?: ProductNutrition | null;
 }
 
 interface Ingredient {
@@ -157,6 +166,51 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
     ...defaultFormData,
     ...initialData,
   });
+  const [isAutoCalculated, setIsAutoCalculated] = useState(false);
+
+  // Функция расчёта калорийности на основе ингредиентов
+  function calculateNutrition() {
+    if (products.length === 0 || formData.ingredients.length === 0) return null;
+
+    let totalCalories = 0;
+    let totalProtein = 0;
+    let totalFat = 0;
+    let totalCarbs = 0;
+
+    for (const ingredient of formData.ingredients) {
+      const product = products.find((p) => p.id === ingredient.productId);
+      if (!product?.nutrition) continue;
+
+      const factor = ingredient.amountInGrams / 100;
+      totalCalories += product.nutrition.calories * factor;
+      totalProtein += product.nutrition.protein * factor;
+      totalFat += product.nutrition.fat * factor;
+      totalCarbs += product.nutrition.carbohydrates * factor;
+    }
+
+    const servings = formData.servings || 1;
+    return {
+      caloriesPerServing: Math.round(totalCalories / servings),
+      proteinPerServing: Math.round((totalProtein / servings) * 10) / 10,
+      fatPerServing: Math.round((totalFat / servings) * 10) / 10,
+      carbsPerServing: Math.round((totalCarbs / servings) * 10) / 10,
+    };
+  }
+
+  // Автоматический пересчёт калорий при изменении ингредиентов
+  function applyAutoCalculation() {
+    const nutrition = calculateNutrition();
+    if (nutrition) {
+      setFormData((prev) => ({
+        ...prev,
+        caloriesPerServing: nutrition.caloriesPerServing,
+        proteinPerServing: nutrition.proteinPerServing,
+        fatPerServing: nutrition.fatPerServing,
+        carbsPerServing: nutrition.carbsPerServing,
+      }));
+      setIsAutoCalculated(true);
+    }
+  }
 
   useEffect(() => {
     async function fetchProducts() {
@@ -756,8 +810,30 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
         <TabsContent value="nutrition">
           <Card>
             <CardHeader>
-              <CardTitle>Пищевая ценность</CardTitle>
-              <CardDescription>На одну порцию (опционально)</CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    Пищевая ценность
+                    {isAutoCalculated && (
+                      <Badge variant="secondary" className="font-normal">
+                        <Calculator className="mr-1 h-3 w-3" />
+                        авторасчёт
+                      </Badge>
+                    )}
+                  </CardTitle>
+                  <CardDescription>На одну порцию (опционально)</CardDescription>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={applyAutoCalculation}
+                  disabled={formData.ingredients.length === 0 || isLoadingProducts}
+                >
+                  <Calculator className="mr-2 h-4 w-4" />
+                  Рассчитать
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -769,9 +845,10 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
                     min="0"
                     step="0.1"
                     value={formData.caloriesPerServing || ""}
-                    onChange={(e) =>
-                      setFormData({ ...formData, caloriesPerServing: parseFloat(e.target.value) || undefined })
-                    }
+                    onChange={(e) => {
+                      setFormData({ ...formData, caloriesPerServing: parseFloat(e.target.value) || undefined });
+                      setIsAutoCalculated(false);
+                    }}
                     placeholder="0"
                   />
                 </div>
@@ -783,9 +860,10 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
                     min="0"
                     step="0.1"
                     value={formData.proteinPerServing || ""}
-                    onChange={(e) =>
-                      setFormData({ ...formData, proteinPerServing: parseFloat(e.target.value) || undefined })
-                    }
+                    onChange={(e) => {
+                      setFormData({ ...formData, proteinPerServing: parseFloat(e.target.value) || undefined });
+                      setIsAutoCalculated(false);
+                    }}
                     placeholder="0"
                   />
                 </div>
@@ -797,9 +875,10 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
                     min="0"
                     step="0.1"
                     value={formData.fatPerServing || ""}
-                    onChange={(e) =>
-                      setFormData({ ...formData, fatPerServing: parseFloat(e.target.value) || undefined })
-                    }
+                    onChange={(e) => {
+                      setFormData({ ...formData, fatPerServing: parseFloat(e.target.value) || undefined });
+                      setIsAutoCalculated(false);
+                    }}
                     placeholder="0"
                   />
                 </div>
@@ -811,9 +890,10 @@ export function RecipeForm({ initialData, recipeId, mode }: RecipeFormProps) {
                     min="0"
                     step="0.1"
                     value={formData.carbsPerServing || ""}
-                    onChange={(e) =>
-                      setFormData({ ...formData, carbsPerServing: parseFloat(e.target.value) || undefined })
-                    }
+                    onChange={(e) => {
+                      setFormData({ ...formData, carbsPerServing: parseFloat(e.target.value) || undefined });
+                      setIsAutoCalculated(false);
+                    }}
                     placeholder="0"
                   />
                 </div>

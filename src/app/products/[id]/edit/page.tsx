@@ -69,16 +69,18 @@ interface Product {
   subcategory?: string;
   description?: string;
   defaultUnit: string;
-  gramsPerPiece?: number;
+  gramsPerPiece?: number | null;
+  packageSize?: number | null;
+  isAlwaysOwned?: boolean;
   nutrition?: {
     calories: number;
     protein: number;
     fat: number;
     carbohydrates: number;
-  };
+  } | null;
   dietaryInfo?: {
     allergens?: string;
-  };
+  } | null;
 }
 
 export default function EditProductPage({
@@ -98,6 +100,8 @@ export default function EditProductPage({
     subcategory: "",
     defaultUnit: "g",
     gramsPerPiece: "",
+    packageSize: "",
+    isAlwaysOwned: false,
     description: "",
     calories: "",
     protein: "",
@@ -132,6 +136,8 @@ export default function EditProductPage({
           subcategory: product.subcategory || "",
           defaultUnit: product.defaultUnit,
           gramsPerPiece: product.gramsPerPiece?.toString() || "",
+          packageSize: product.packageSize?.toString() || "",
+          isAlwaysOwned: product.isAlwaysOwned || false,
           description: product.description || "",
           calories: product.nutrition?.calories?.toString() || "",
           protein: product.nutrition?.protein?.toString() || "",
@@ -167,6 +173,8 @@ export default function EditProductPage({
         subcategory: formData.subcategory || null,
         description: formData.description || null,
         gramsPerPiece: formData.gramsPerPiece ? parseFloat(formData.gramsPerPiece) : null,
+        packageSize: formData.packageSize ? parseFloat(formData.packageSize) : null,
+        isAlwaysOwned: formData.isAlwaysOwned,
       };
 
       // Add nutrition if any field is filled
@@ -343,6 +351,37 @@ export default function EditProductPage({
                       />
                     </div>
                   )}
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="packageSize">Размер упаковки (г)</Label>
+                    <Input
+                      id="packageSize"
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={formData.packageSize}
+                      onChange={(e) => setFormData({ ...formData, packageSize: e.target.value })}
+                      placeholder="1000"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Используется для округления в списке покупок
+                    </p>
+                  </div>
+
+                  <div className="flex items-center space-x-2 pt-6">
+                    <Checkbox
+                      id="isAlwaysOwned"
+                      checked={formData.isAlwaysOwned}
+                      onCheckedChange={(checked) =>
+                        setFormData({ ...formData, isAlwaysOwned: checked === true })
+                      }
+                    />
+                    <Label htmlFor="isAlwaysOwned" className="cursor-pointer">
+                      Всегда есть дома
+                    </Label>
+                  </div>
                 </div>
               </CardContent>
             </Card>

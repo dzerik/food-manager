@@ -83,6 +83,15 @@ async function main() {
   console.log("📦 Seeding products...");
   const products = productsData as ProductData[];
 
+  // Продукты, которые всегда есть дома (специи, базовые ингредиенты)
+  const alwaysOwnedProductIds = new Set([
+    "prod_salt",
+    "prod_sugar",
+    "prod_black_pepper",
+    "prod_sunflower_oil",
+    "prod_bay_leaf",
+  ]);
+
   for (const product of products) {
     await prisma.product.create({
       data: {
@@ -93,6 +102,7 @@ async function main() {
         defaultUnit: product.defaultUnit,
         gramsPerPiece: product.gramsPerPiece,
         gramsPerCup: product.gramsPerCup,
+        isAlwaysOwned: alwaysOwnedProductIds.has(product.id),
         nutrition: {
           create: {
             calories: product.nutrition.calories,

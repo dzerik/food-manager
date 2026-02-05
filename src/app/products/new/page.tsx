@@ -72,6 +72,8 @@ export default function NewProductPage() {
     subcategory: "",
     defaultUnit: "g",
     gramsPerPiece: "",
+    packageSize: "",
+    isAlwaysOwned: false,
     description: "",
     calories: "",
     protein: "",
@@ -104,6 +106,8 @@ export default function NewProductPage() {
       if (formData.subcategory) payload.subcategory = formData.subcategory;
       if (formData.description) payload.description = formData.description;
       if (formData.gramsPerPiece) payload.gramsPerPiece = parseFloat(formData.gramsPerPiece);
+      if (formData.packageSize) payload.packageSize = parseFloat(formData.packageSize);
+      payload.isAlwaysOwned = formData.isAlwaysOwned;
 
       // Add nutrition if any field is filled
       if (formData.calories || formData.protein || formData.fat || formData.carbohydrates) {
@@ -257,6 +261,37 @@ export default function NewProductPage() {
                       />
                     </div>
                   )}
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="packageSize">Размер упаковки (г)</Label>
+                    <Input
+                      id="packageSize"
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={formData.packageSize}
+                      onChange={(e) => setFormData({ ...formData, packageSize: e.target.value })}
+                      placeholder="1000"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Используется для округления в списке покупок
+                    </p>
+                  </div>
+
+                  <div className="flex items-center space-x-2 pt-6">
+                    <Checkbox
+                      id="isAlwaysOwned"
+                      checked={formData.isAlwaysOwned}
+                      onCheckedChange={(checked) =>
+                        setFormData({ ...formData, isAlwaysOwned: checked === true })
+                      }
+                    />
+                    <Label htmlFor="isAlwaysOwned" className="cursor-pointer">
+                      Всегда есть дома
+                    </Label>
+                  </div>
                 </div>
               </CardContent>
             </Card>

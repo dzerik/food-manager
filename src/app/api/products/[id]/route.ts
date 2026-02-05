@@ -56,6 +56,8 @@ const updateProductSchema = z.object({
   defaultUnit: z.string().optional(),
   gramsPerPiece: z.number().optional().nullable(),
   gramsPerCup: z.number().optional().nullable(),
+  packageSize: z.number().optional().nullable(),
+  isAlwaysOwned: z.boolean().optional(),
   nutrition: z.object({
     calories: z.number(),
     protein: z.number(),

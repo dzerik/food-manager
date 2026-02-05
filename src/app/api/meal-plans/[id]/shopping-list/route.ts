@@ -7,7 +7,12 @@ interface AggregatedItem {
   productName: string;
   category: string;
   totalGrams: number;
+  roundedGrams: number;      // Округлённое до кратности
+  packagesNeeded: number | null; // Количество упаковок (если указана кратность)
+  packageSize: number | null; // Размер упаковки
+  gramsPerPiece: number | null; // Граммов в штуке (для unit="pcs")
   unit: string;
+  isAlwaysOwned: boolean;    // Продукт всегда есть дома
 }
 
 export async function GET(
@@ -16,11 +21,14 @@ export async function GET(
 ) {
   try {
     const session = await auth();
+    console.log("GET shopping-list - session:", session?.user?.id);
+
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
+    console.log("GET shopping-list - mealPlanId:", id);
 
     // Get meal plan with all recipes and their ingredients
     const mealPlan = await db.mealPlan.findUnique({
@@ -47,9 +55,26 @@ export async function GET(
       },
     });
 
+    // Get all products with packageSize, isAlwaysOwned, gramsPerPiece
+    const products = await db.product.findMany({
+      select: {
+        id: true,
+        packageSize: true,
+        isAlwaysOwned: true,
+        gramsPerPiece: true,
+      },
+    });
+    const productMetaMap = new Map(products.map((p) => [p.id, p]));
+
     if (!mealPlan) {
+      console.log("GET shopping-list - meal plan not found for user:", session.user.id);
+      // Check if plan exists but belongs to different user
+      const planExists = await db.mealPlan.findUnique({ where: { id }, select: { userId: true } });
+      console.log("GET shopping-list - plan exists with userId:", planExists?.userId);
       return NextResponse.json({ error: "Meal plan not found" }, { status: 404 });
     }
+
+    console.log("GET shopping-list - found plan with", mealPlan.recipes.length, "recipes");
 
     // Get user allergies
     const userAllergies = await db.userAllergy.findMany({
@@ -71,14 +96,32 @@ export async function GET(
         if (existing) {
           existing.totalGrams += gramsNeeded;
         } else {
+          const productMeta = productMetaMap.get(ingredient.productId);
           itemsMap.set(ingredient.productId, {
             productId: ingredient.productId,
             productName: ingredient.product.name,
             category: ingredient.product.category,
             totalGrams: gramsNeeded,
+            roundedGrams: gramsNeeded,
+            packagesNeeded: null,
+            packageSize: productMeta?.packageSize || null,
+            gramsPerPiece: productMeta?.gramsPerPiece || null,
             unit: ingredient.product.defaultUnit,
+            isAlwaysOwned: productMeta?.isAlwaysOwned || false,
           });
         }
+      }
+    }
+
+    // Apply rounding to package size
+    for (const item of itemsMap.values()) {
+      if (item.packageSize && item.packageSize > 0) {
+        const packages = Math.ceil(item.totalGrams / item.packageSize);
+        item.roundedGrams = packages * item.packageSize;
+        item.packagesNeeded = packages;
+      } else {
+        item.roundedGrams = Math.ceil(item.totalGrams);
+        item.packagesNeeded = null;
       }
     }
 
@@ -99,6 +142,7 @@ export async function GET(
         isExcluded: hasAllergen,
         excludeReason: hasAllergen ? "Аллергия" : undefined,
         allergens: productAllergens,
+        isChecked: item.isAlwaysOwned, // По умолчанию отмечены продукты, которые всегда есть дома
       };
     });
 

@@ -30,6 +30,9 @@ export function Header() {
           <Link href="/recipes" className="transition-colors hover:text-foreground/80">
             Рецепты
           </Link>
+          <Link href="/products" className="transition-colors hover:text-foreground/80">
+            Продукты
+          </Link>
           <Link href="/meal-plan" className="transition-colors hover:text-foreground/80">
             План питания
           </Link>
