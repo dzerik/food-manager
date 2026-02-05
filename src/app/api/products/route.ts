@@ -19,6 +19,7 @@ export async function GET(request: NextRequest) {
       ...(search && {
         name: {
           contains: search,
+          mode: "insensitive" as const,
         },
       }),
     };

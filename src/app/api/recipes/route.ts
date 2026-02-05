@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
       ...(query.search && {
         name: {
           contains: query.search,
+          mode: "insensitive" as const,
         },
       }),
       ...(query.difficulty && { difficultyLevel: query.difficulty }),
@@ -33,16 +34,19 @@ export async function GET(request: NextRequest) {
       ...(query.cuisine && {
         cuisines: {
           contains: query.cuisine,
+          mode: "insensitive" as const,
         },
       }),
       ...(query.mealType && {
         mealTypes: {
           contains: query.mealType,
+          mode: "insensitive" as const,
         },
       }),
       ...(query.course && {
         courses: {
           contains: query.course,
+          mode: "insensitive" as const,
         },
       }),
     };
