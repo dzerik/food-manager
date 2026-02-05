@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UtensilsCrossed, Moon, Sun, User, Settings, LogOut } from "lucide-react";
+import { UtensilsCrossed, Moon, Sun, User, Settings, LogOut, HelpCircle } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export function Header() {
@@ -41,7 +41,13 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-2">
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/help">
+              <HelpCircle className="h-5 w-5" />
+              <span className="sr-only">Справка</span>
+            </Link>
+          </Button>
           <Button
             variant="ghost"
             size="icon"
