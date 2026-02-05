@@ -146,18 +146,20 @@ export function Header() {
         {/* Desktop navigation */}
         <nav className="ml-8 hidden items-center gap-1 text-sm md:flex">
           {navItems.map((item) => {
+            const Icon = item.icon;
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                   isActive
                     ? "bg-primary-foreground/20 text-primary-foreground"
                     : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 )}
               >
+                <Icon className="h-4 w-4" />
                 {item.label}
               </Link>
             );
