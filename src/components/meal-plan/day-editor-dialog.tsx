@@ -32,6 +32,8 @@ import { Plus, Trash2, Copy, AlertTriangle, CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { format, addDays, eachDayOfInterval, isSameDay } from "date-fns";
 import { ru } from "date-fns/locale";
+import { mealTypes, mealTypeOrder } from "@/lib/meal-types";
+import { cn } from "@/lib/utils";
 
 interface Recipe {
   id: string;
@@ -69,14 +71,6 @@ interface DayEditorDialogProps {
   trigger?: React.ReactNode;
 }
 
-const mealTypeLabels: Record<string, string> = {
-  breakfast: "Завтрак",
-  lunch: "Обед",
-  dinner: "Ужин",
-  snack: "Перекус",
-};
-
-const mealTypeOrder = ["breakfast", "lunch", "dinner", "snack"];
 
 export function DayEditorDialog({
   date,
@@ -311,13 +305,22 @@ export function DayEditorDialog({
           {mealTypeOrder.map((mealType) => {
             const meals = dayRecipes.filter((r) => r.mealType === mealType);
             const mealCalories = caloriesByMealType[mealType];
+            const mealConfig = mealTypes[mealType];
+            const MealIcon = mealConfig.icon;
 
             return (
-              <div key={mealType} className="rounded-lg border p-3">
+              <div key={mealType} className={cn("rounded-lg border p-3", mealConfig.borderColor)}>
                 <div className="mb-2 flex items-center justify-between">
-                  <h4 className="font-medium">{mealTypeLabels[mealType]}</h4>
+                  <div className="flex items-center gap-2">
+                    <div className={cn("rounded-lg p-1.5", mealConfig.bgColor)}>
+                      <MealIcon className={cn("h-4 w-4", mealConfig.color)} />
+                    </div>
+                    <h4 className="font-medium">{mealConfig.label}</h4>
+                  </div>
                   {mealCalories > 0 && (
-                    <Badge variant="secondary">{mealCalories} ккал</Badge>
+                    <Badge variant="secondary" className={cn(mealConfig.bgColor, mealConfig.color, "border-0")}>
+                      {mealCalories} ккал
+                    </Badge>
                   )}
                 </div>
 

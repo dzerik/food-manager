@@ -28,6 +28,8 @@ import {
 import { toast } from "sonner";
 import { format, isAfter, isBefore, startOfDay } from "date-fns";
 import { ru } from "date-fns/locale";
+import { getCategoryConfig } from "@/lib/product-categories";
+import { cn } from "@/lib/utils";
 
 interface ShoppingItem {
   productId: string;
@@ -594,15 +596,23 @@ export default function ShoppingListPage() {
                   (i) => !i.isExcluded && checkedItems.has(i.productId)
                 ).length;
                 const categoryTotal = items.filter((i) => !i.isExcluded).length;
+                const catConfig = getCategoryConfig(category);
+                const CatIcon = catConfig.icon;
+                const isComplete = categoryChecked === categoryTotal && categoryTotal > 0;
 
                 return (
-                  <Card key={category}>
+                  <Card key={category} className={cn(isComplete && "opacity-60")}>
                     <CardHeader className="pb-3">
                       <CardTitle className="flex items-center justify-between text-lg">
-                        <span>{categoryLabels[category] || category}</span>
-                        <span className="text-sm font-normal text-muted-foreground">
+                        <div className="flex items-center gap-2">
+                          <div className={cn("rounded-lg p-1.5", catConfig.bgColor)}>
+                            <CatIcon className={cn("h-4 w-4", catConfig.color)} />
+                          </div>
+                          <span>{categoryLabels[category] || catConfig.label}</span>
+                        </div>
+                        <Badge variant={isComplete ? "default" : "secondary"} className="text-xs">
                           {categoryChecked}/{categoryTotal}
-                        </span>
+                        </Badge>
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
