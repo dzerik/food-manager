@@ -938,5 +938,595 @@
     "gramsPerCup": 128,
     "nutrition": { "calories": 381, "protein": 0.3, "fat": 0.1, "carbohydrates": 91 },
     "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_arugula",
+    "name": "Руккола",
+    "category": "vegetables",
+    "subcategory": "leafy_greens",
+    "defaultUnit": "g",
+    "gramsPerCup": 20,
+    "nutrition": { "calories": 25, "protein": 2.6, "fat": 0.7, "carbohydrates": 3.7 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_radish",
+    "name": "Редис",
+    "category": "vegetables",
+    "subcategory": "root",
+    "defaultUnit": "g",
+    "gramsPerPiece": 10,
+    "nutrition": { "calories": 16, "protein": 0.7, "fat": 0.1, "carbohydrates": 3.4 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_pear",
+    "name": "Груша",
+    "category": "fruits",
+    "subcategory": "pome",
+    "defaultUnit": "g",
+    "gramsPerPiece": 180,
+    "nutrition": { "calories": 57, "protein": 0.4, "fat": 0.1, "carbohydrates": 15 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_peach",
+    "name": "Персик",
+    "category": "fruits",
+    "subcategory": "stone_fruit",
+    "defaultUnit": "g",
+    "gramsPerPiece": 150,
+    "nutrition": { "calories": 39, "protein": 0.9, "fat": 0.3, "carbohydrates": 10 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_mango",
+    "name": "Манго",
+    "category": "fruits",
+    "subcategory": "tropical",
+    "defaultUnit": "g",
+    "gramsPerPiece": 300,
+    "nutrition": { "calories": 60, "protein": 0.8, "fat": 0.4, "carbohydrates": 15 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_kiwi",
+    "name": "Киви",
+    "category": "fruits",
+    "subcategory": "tropical",
+    "defaultUnit": "g",
+    "gramsPerPiece": 75,
+    "nutrition": { "calories": 61, "protein": 1.1, "fat": 0.5, "carbohydrates": 15 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_pomegranate",
+    "name": "Гранат",
+    "category": "fruits",
+    "subcategory": "exotic",
+    "defaultUnit": "g",
+    "gramsPerPiece": 250,
+    "nutrition": { "calories": 83, "protein": 1.7, "fat": 1.2, "carbohydrates": 19 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_persimmon",
+    "name": "Хурма",
+    "category": "fruits",
+    "subcategory": "exotic",
+    "defaultUnit": "g",
+    "gramsPerPiece": 170,
+    "nutrition": { "calories": 70, "protein": 0.6, "fat": 0.2, "carbohydrates": 19 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_turkey",
+    "name": "Индейка",
+    "category": "meat",
+    "subcategory": "poultry",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 189, "protein": 29, "fat": 7.4, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_duck",
+    "name": "Утка",
+    "category": "meat",
+    "subcategory": "poultry",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 337, "protein": 19, "fat": 28, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_rabbit",
+    "name": "Кролик",
+    "category": "meat",
+    "subcategory": "game",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 173, "protein": 33, "fat": 3.5, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_lamb",
+    "name": "Баранина",
+    "category": "meat",
+    "subcategory": "lamb",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 294, "protein": 25, "fat": 21, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_trout",
+    "name": "Форель",
+    "category": "fish",
+    "subcategory": "salmon",
+    "defaultUnit": "g",
+    "gramsPerPiece": 200,
+    "nutrition": { "calories": 148, "protein": 21, "fat": 6.6, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true, "allergens": ["fish"] }
+  },
+  {
+    "id": "prod_mackerel",
+    "name": "Скумбрия",
+    "category": "fish",
+    "subcategory": "oily_fish",
+    "defaultUnit": "g",
+    "gramsPerPiece": 250,
+    "nutrition": { "calories": 205, "protein": 19, "fat": 14, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true, "allergens": ["fish"] }
+  },
+  {
+    "id": "prod_tuna",
+    "name": "Тунец",
+    "category": "fish",
+    "subcategory": "oily_fish",
+    "defaultUnit": "g",
+    "gramsPerPiece": 150,
+    "nutrition": { "calories": 144, "protein": 23, "fat": 5, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true, "allergens": ["fish"] }
+  },
+  {
+    "id": "prod_squid",
+    "name": "Кальмар",
+    "category": "seafood",
+    "subcategory": "mollusk",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 92, "protein": 18, "fat": 1.4, "carbohydrates": 3.1 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true, "allergens": ["shellfish"] }
+  },
+  {
+    "id": "prod_kefir",
+    "name": "Кефир",
+    "category": "dairy",
+    "subcategory": "fermented",
+    "defaultUnit": "ml",
+    "gramsPerCup": 240,
+    "nutrition": { "calories": 40, "protein": 3.4, "fat": 1, "carbohydrates": 4.5 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": false, "isNutFree": true, "allergens": ["milk"] }
+  },
+  {
+    "id": "prod_ryazhenka",
+    "name": "Ряженка",
+    "category": "dairy",
+    "subcategory": "fermented",
+    "defaultUnit": "ml",
+    "gramsPerCup": 240,
+    "nutrition": { "calories": 67, "protein": 2.8, "fat": 4, "carbohydrates": 4.2 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": false, "isNutFree": true, "allergens": ["milk"] }
+  },
+  {
+    "id": "prod_cottage_cheese_5",
+    "name": "Творог 5%",
+    "category": "dairy",
+    "subcategory": "cottage_cheese",
+    "defaultUnit": "g",
+    "gramsPerCup": 226,
+    "nutrition": { "calories": 121, "protein": 17, "fat": 5, "carbohydrates": 1.8 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": false, "isNutFree": true, "allergens": ["milk"] }
+  },
+  {
+    "id": "prod_mascarpone",
+    "name": "Маскарпоне",
+    "category": "dairy",
+    "subcategory": "cheese",
+    "defaultUnit": "g",
+    "gramsPerPiece": 250,
+    "nutrition": { "calories": 429, "protein": 4.8, "fat": 44, "carbohydrates": 3 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": false, "isNutFree": true, "allergens": ["milk"] }
+  },
+  {
+    "id": "prod_parmesan",
+    "name": "Пармезан",
+    "category": "dairy",
+    "subcategory": "cheese",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 431, "protein": 38, "fat": 29, "carbohydrates": 4.1 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": false, "isNutFree": true, "allergens": ["milk"] }
+  },
+  {
+    "id": "prod_feta",
+    "name": "Фета",
+    "category": "dairy",
+    "subcategory": "cheese",
+    "defaultUnit": "g",
+    "gramsPerPiece": 200,
+    "nutrition": { "calories": 264, "protein": 14, "fat": 21, "carbohydrates": 4.1 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": false, "isNutFree": true, "allergens": ["milk"] }
+  },
+  {
+    "id": "prod_couscous",
+    "name": "Кускус",
+    "category": "grains",
+    "subcategory": "wheat",
+    "defaultUnit": "g",
+    "gramsPerCup": 157,
+    "nutrition": { "calories": 376, "protein": 13, "fat": 0.6, "carbohydrates": 77 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": false, "isDairyFree": true, "isNutFree": true, "allergens": ["wheat"] }
+  },
+  {
+    "id": "prod_bulgur",
+    "name": "Булгур",
+    "category": "grains",
+    "subcategory": "wheat",
+    "defaultUnit": "g",
+    "gramsPerCup": 182,
+    "nutrition": { "calories": 342, "protein": 12, "fat": 1.3, "carbohydrates": 76 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": false, "isDairyFree": true, "isNutFree": true, "allergens": ["wheat"] }
+  },
+  {
+    "id": "prod_quinoa",
+    "name": "Киноа",
+    "category": "grains",
+    "subcategory": "pseudocereal",
+    "defaultUnit": "g",
+    "gramsPerCup": 170,
+    "nutrition": { "calories": 368, "protein": 14, "fat": 6, "carbohydrates": 64 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_red_lentils",
+    "name": "Чечевица красная",
+    "category": "legumes",
+    "subcategory": "dried",
+    "defaultUnit": "g",
+    "gramsPerCup": 192,
+    "nutrition": { "calories": 358, "protein": 24, "fat": 1.1, "carbohydrates": 63 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_lime",
+    "name": "Лайм",
+    "category": "fruits",
+    "subcategory": "citrus",
+    "defaultUnit": "g",
+    "gramsPerPiece": 50,
+    "nutrition": { "calories": 30, "protein": 0.7, "fat": 0.2, "carbohydrates": 11 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_coconut_cream",
+    "name": "Кокосовые сливки",
+    "category": "dairy_alternatives",
+    "subcategory": "plant_cream",
+    "defaultUnit": "ml",
+    "gramsPerCup": 240,
+    "nutrition": { "calories": 330, "protein": 3.6, "fat": 35, "carbohydrates": 6.6 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_fish_sauce",
+    "name": "Рыбный соус",
+    "category": "sauces",
+    "subcategory": "asian",
+    "defaultUnit": "ml",
+    "gramsPerCup": 255,
+    "nutrition": { "calories": 35, "protein": 5, "fat": 0, "carbohydrates": 3.6 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true, "allergens": ["fish"] }
+  },
+  {
+    "id": "prod_curry_paste",
+    "name": "Паста карри",
+    "category": "sauces",
+    "subcategory": "asian",
+    "defaultUnit": "g",
+    "gramsPerPiece": 100,
+    "nutrition": { "calories": 94, "protein": 2, "fat": 6, "carbohydrates": 8 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_lemongrass",
+    "name": "Лемонграсс",
+    "category": "herbs",
+    "subcategory": "fresh",
+    "defaultUnit": "g",
+    "gramsPerPiece": 20,
+    "nutrition": { "calories": 99, "protein": 1.8, "fat": 0.5, "carbohydrates": 25 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_galangal",
+    "name": "Галангал",
+    "category": "spices",
+    "subcategory": "root",
+    "defaultUnit": "g",
+    "gramsPerPiece": 30,
+    "nutrition": { "calories": 71, "protein": 1.5, "fat": 1, "carbohydrates": 15 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_kaffir_lime_leaves",
+    "name": "Листья кафрского лайма",
+    "category": "herbs",
+    "subcategory": "fresh",
+    "defaultUnit": "g",
+    "gramsPerPiece": 1,
+    "nutrition": { "calories": 25, "protein": 0.5, "fat": 0.2, "carbohydrates": 5 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_cherry_tomato",
+    "name": "Помидоры черри",
+    "category": "vegetables",
+    "subcategory": "nightshade",
+    "defaultUnit": "g",
+    "gramsPerPiece": 15,
+    "nutrition": { "calories": 18, "protein": 0.9, "fat": 0.1, "carbohydrates": 3.9 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_chili_pepper",
+    "name": "Перец чили",
+    "category": "vegetables",
+    "subcategory": "nightshade",
+    "defaultUnit": "g",
+    "gramsPerPiece": 5,
+    "nutrition": { "calories": 40, "protein": 2, "fat": 0.4, "carbohydrates": 9 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_mint",
+    "name": "Мята",
+    "category": "herbs",
+    "subcategory": "fresh",
+    "defaultUnit": "g",
+    "gramsPerPiece": 5,
+    "nutrition": { "calories": 70, "protein": 3.8, "fat": 0.9, "carbohydrates": 15 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_pine_nuts",
+    "name": "Кедровые орехи",
+    "category": "nuts",
+    "subcategory": "seeds",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 673, "protein": 14, "fat": 68, "carbohydrates": 13 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": false, "allergens": ["tree_nuts"] }
+  },
+  {
+    "id": "prod_bacon",
+    "name": "Бекон",
+    "category": "meat",
+    "subcategory": "processed",
+    "defaultUnit": "g",
+    "gramsPerPiece": 15,
+    "nutrition": { "calories": 541, "protein": 37, "fat": 42, "carbohydrates": 1.4 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_guanciale",
+    "name": "Гуанчале",
+    "category": "meat",
+    "subcategory": "processed",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 655, "protein": 11, "fat": 69, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_pecorino",
+    "name": "Пекорино",
+    "category": "dairy",
+    "subcategory": "cheese",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 387, "protein": 32, "fat": 27, "carbohydrates": 3.6 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": false, "isNutFree": true, "allergens": ["milk"] }
+  },
+  {
+    "id": "prod_arborio_rice",
+    "name": "Рис арборио",
+    "category": "grains",
+    "subcategory": "rice",
+    "defaultUnit": "g",
+    "gramsPerCup": 185,
+    "nutrition": { "calories": 358, "protein": 6.5, "fat": 0.5, "carbohydrates": 79 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_white_wine",
+    "name": "Белое вино",
+    "category": "liquids",
+    "subcategory": "alcohol",
+    "defaultUnit": "ml",
+    "gramsPerCup": 240,
+    "nutrition": { "calories": 82, "protein": 0.1, "fat": 0, "carbohydrates": 2.6 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_olives",
+    "name": "Оливки",
+    "category": "vegetables",
+    "subcategory": "pickled",
+    "defaultUnit": "g",
+    "gramsPerPiece": 4,
+    "nutrition": { "calories": 115, "protein": 0.8, "fat": 11, "carbohydrates": 6 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_capers",
+    "name": "Каперсы",
+    "category": "vegetables",
+    "subcategory": "pickled",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 23, "protein": 2.4, "fat": 0.9, "carbohydrates": 5 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_anchovy",
+    "name": "Анчоусы",
+    "category": "fish",
+    "subcategory": "preserved",
+    "defaultUnit": "g",
+    "gramsPerPiece": 4,
+    "nutrition": { "calories": 210, "protein": 29, "fat": 10, "carbohydrates": 0 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true, "allergens": ["fish"] }
+  },
+  {
+    "id": "prod_oyster_sauce",
+    "name": "Устричный соус",
+    "category": "sauces",
+    "subcategory": "asian",
+    "defaultUnit": "ml",
+    "gramsPerCup": 255,
+    "nutrition": { "calories": 51, "protein": 1.4, "fat": 0.3, "carbohydrates": 11 },
+    "dietary": { "isVegan": false, "isVegetarian": false, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true, "allergens": ["shellfish"] }
+  },
+  {
+    "id": "prod_rice_vinegar",
+    "name": "Рисовый уксус",
+    "category": "condiments",
+    "subcategory": "vinegar",
+    "defaultUnit": "ml",
+    "gramsPerCup": 240,
+    "nutrition": { "calories": 18, "protein": 0, "fat": 0, "carbohydrates": 0.5 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_tahini",
+    "name": "Тахини",
+    "category": "sauces",
+    "subcategory": "paste",
+    "defaultUnit": "g",
+    "gramsPerCup": 240,
+    "nutrition": { "calories": 595, "protein": 17, "fat": 54, "carbohydrates": 22 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true, "allergens": ["sesame"] }
+  },
+  {
+    "id": "prod_pita_bread",
+    "name": "Пита",
+    "category": "grains",
+    "subcategory": "bread",
+    "defaultUnit": "g",
+    "gramsPerPiece": 60,
+    "nutrition": { "calories": 275, "protein": 9, "fat": 1.2, "carbohydrates": 55 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": false, "isDairyFree": true, "isNutFree": true, "allergens": ["wheat"] }
+  },
+  {
+    "id": "prod_green_onion",
+    "name": "Лук зелёный",
+    "category": "vegetables",
+    "subcategory": "allium",
+    "defaultUnit": "g",
+    "gramsPerPiece": 15,
+    "nutrition": { "calories": 32, "protein": 1.8, "fat": 0.2, "carbohydrates": 7 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_spaghetti",
+    "name": "Спагетти",
+    "category": "grains",
+    "subcategory": "pasta",
+    "defaultUnit": "g",
+    "gramsPerCup": 140,
+    "nutrition": { "calories": 131, "protein": 5, "fat": 1.1, "carbohydrates": 25 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": false, "isDairyFree": true, "isNutFree": true, "allergens": ["wheat"] }
+  },
+  {
+    "id": "prod_romaine_lettuce",
+    "name": "Салат ромэн",
+    "category": "vegetables",
+    "subcategory": "leafy_greens",
+    "defaultUnit": "g",
+    "gramsPerPiece": 300,
+    "nutrition": { "calories": 17, "protein": 1.2, "fat": 0.3, "carbohydrates": 3.3 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_croutons",
+    "name": "Сухарики",
+    "category": "grains",
+    "subcategory": "bread",
+    "defaultUnit": "g",
+    "gramsPerCup": 30,
+    "nutrition": { "calories": 407, "protein": 12, "fat": 8, "carbohydrates": 74 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": false, "isDairyFree": false, "isNutFree": true, "allergens": ["wheat", "milk"] }
+  },
+  {
+    "id": "prod_caesar_dressing",
+    "name": "Соус Цезарь",
+    "category": "sauces",
+    "subcategory": "dressing",
+    "defaultUnit": "ml",
+    "gramsPerCup": 240,
+    "nutrition": { "calories": 400, "protein": 3, "fat": 42, "carbohydrates": 3 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": false, "isNutFree": true, "allergens": ["eggs", "milk", "fish"] }
+  },
+  {
+    "id": "prod_granola",
+    "name": "Гранола",
+    "category": "grains",
+    "subcategory": "cereal",
+    "defaultUnit": "g",
+    "gramsPerCup": 100,
+    "nutrition": { "calories": 471, "protein": 10, "fat": 20, "carbohydrates": 64 },
+    "dietary": { "isVegan": false, "isVegetarian": true, "isGlutenFree": false, "isDairyFree": true, "isNutFree": false, "allergens": ["wheat", "tree_nuts"] }
+  },
+  {
+    "id": "prod_berries_mix",
+    "name": "Ягодный микс",
+    "category": "fruits",
+    "subcategory": "berries",
+    "defaultUnit": "g",
+    "gramsPerCup": 140,
+    "nutrition": { "calories": 57, "protein": 0.7, "fat": 0.3, "carbohydrates": 14 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_chia_seeds",
+    "name": "Семена чиа",
+    "category": "seeds",
+    "subcategory": "seeds",
+    "defaultUnit": "g",
+    "gramsPerPiece": null,
+    "nutrition": { "calories": 486, "protein": 17, "fat": 31, "carbohydrates": 42 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_maple_syrup",
+    "name": "Кленовый сироп",
+    "category": "sweeteners",
+    "subcategory": "syrup",
+    "defaultUnit": "ml",
+    "gramsPerCup": 312,
+    "nutrition": { "calories": 260, "protein": 0, "fat": 0.1, "carbohydrates": 67 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
+  },
+  {
+    "id": "prod_zucchini_noodles",
+    "name": "Лапша из кабачков",
+    "category": "vegetables",
+    "subcategory": "processed",
+    "defaultUnit": "g",
+    "gramsPerCup": 120,
+    "nutrition": { "calories": 17, "protein": 1.2, "fat": 0.3, "carbohydrates": 3.1 },
+    "dietary": { "isVegan": true, "isVegetarian": true, "isGlutenFree": true, "isDairyFree": true, "isNutFree": true }
   }
 ]

@@ -72,6 +72,8 @@ async function main() {
 
   // Clear existing data
   console.log("🗑️  Clearing existing data...");
+  await prisma.mealPlanRecipe.deleteMany();
+  await prisma.mealPlan.deleteMany();
   await prisma.recipeStep.deleteMany();
   await prisma.recipeIngredient.deleteMany();
   await prisma.recipe.deleteMany();
